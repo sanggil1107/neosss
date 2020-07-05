@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
-import User from './components/User';
-import Register from './components/Register';
-import MenuBar from './components/Menubar';
+import MenuBar from './Components/Menubar';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <MenuBar/>
+        <Router>
+          <MenuBar/>
+        </Router>
       </div>
     );
   }
