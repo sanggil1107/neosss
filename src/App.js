@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import MenuBar from './Components/Menubar';
+import MenuBar from './components/Menubar';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 class App extends Component {
