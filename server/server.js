@@ -1,7 +1,41 @@
 const express = require('express');
 const app = express();
-const api = require('./routes/index');
+const sql = require('mssql');
+const bodyParser = require('body-parser');
+const port =process.env.PORT || 3001;
+const config = {
+  user: 'neoss',
+  password: 'new1234!',
+  server: 'neoss.database.windows.net',
+  database: 'NEOSSWORK'
+};
 
-app.use('/api', api);
+app.use(bodyParser.json());
+// app.use('/api', (req, res)=> res.json({username:'bryan'}));
 
-app.listen(3001, () => console.log('Node.js Server is running on port 3001...'));
+app.get('/', (req, res) => {
+  res.json({username:'home'});
+})
+
+
+app.get('/api', (req, res) => {
+  res.json({username:'bryan'});
+})
+
+app.get('/test', (req, res) => {
+  sql.connect(config, function(err) {
+    if(err) {
+      console.log(err);
+    }
+
+    const request = new sql.Request();
+    request.query('select * from tb_code', function (err, rows) {
+      res.json(rows.recordset);
+      console.log(rows.recordset);
+      console.log(rows);
+    })
+    
+  })
+});
+
+app.listen(port, () => console.log('Node.js Server is running on port 3001...'));
