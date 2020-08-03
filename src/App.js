@@ -18,10 +18,10 @@ class App extends Component {
   }
 
   callApi = async () => {
-    const reponse = await fetch('api');
-    //const body = await reponse.json();
+    const reponse = await fetch('/api');
+    const body = await reponse.json();
     console.log(reponse);
-    return reponse;
+    return body;
   }
 
   // componentDidMount() {
@@ -36,7 +36,7 @@ class App extends Component {
       <div className="App">
         <Router>
           <MenuBar/>
-          {username ? `${username}` : 'Hello World'}
+          {username}
         </Router>
       </div>
     );

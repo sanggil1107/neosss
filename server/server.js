@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const sql = require('mssql');
 const bodyParser = require('body-parser');
+//const api = require('./routes/index');
 const port =process.env.PORT || 3001;
 const config = {
   user: 'neoss',
@@ -10,32 +11,32 @@ const config = {
   database: 'NEOSSWORK'
 };
 
-app.use(bodyParser.json());
+
 // app.use('/api', (req, res)=> res.json({username:'bryan'}));
-
-app.get('/', (req, res) => {
-  res.json({username:'home'});
-})
-
-
+//app.use('/', api)
 app.get('/api', (req, res) => {
-  res.json({username:'bryan'});
+  res.send({username:'home'});
 })
 
-app.get('/test', (req, res) => {
-  sql.connect(config, function(err) {
-    if(err) {
-      console.log(err);
-    }
 
-    const request = new sql.Request();
-    request.query('select * from tb_code', function (err, rows) {
-      res.json(rows.recordset);
-      console.log(rows.recordset);
-      console.log(rows);
-    })
+// app.get('/api', (req, res) => {
+//   res.json({username:'bryan'});
+// })
+
+// app.get('/test', (req, res) => {
+//   sql.connect(config, function(err) {
+//     if(err) {
+//       console.log(err);
+//     }
+
+//     const request = new sql.Request();
+//     request.query('select * from tb_code', function (err, rows) {
+//       res.json(rows.recordset);
+//       console.log(rows.recordset);
+//       console.log(rows);
+//     })
     
-  })
-});
+//   })
+// });
 
 app.listen(port, () => console.log('Node.js Server is running on port 3001...'));
