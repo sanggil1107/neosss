@@ -14,9 +14,11 @@
     "material-ui-icons": "^1.0.0-beta.36",
     "mssql": "^6.2.0",
     "react": "^16.13.1",
+    "react-calendar": "^3.1.0",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "tui-calendar": "^1.12.13"
   },
   "scripts": {
     "start": "react-scripts start",

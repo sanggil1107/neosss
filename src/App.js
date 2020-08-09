@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import MenuBar from './components/Menubar';
+import 'react-calendar/dist/Calendar.css';
+//import Calendar from 'react-calendar';
+import NCalendar from './components/NCalendar';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 class App extends Component {
@@ -18,7 +21,7 @@ class App extends Component {
   }
 
   callApi = async () => {
-    const reponse = await fetch('/api');
+    const reponse = await fetch('/hi');
     const body = await reponse.json();
     console.log(reponse);
     return body;
@@ -36,7 +39,8 @@ class App extends Component {
       <div className="App">
         <Router>
           <MenuBar/>
-          {username}
+          {/* {username} */}
+          <NCalendar />
         </Router>
       </div>
     );

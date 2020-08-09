@@ -18,6 +18,9 @@ app.get('/api', (req, res) => {
   res.send({username:'home'});
 })
 
+app.get('/hi', (req, res) => {
+  res.send({username: 'hello react!'});
+})
 
 // app.get('/api', (req, res) => {
 //   res.json({username:'bryan'});
