@@ -130,7 +130,7 @@ class MenuBar extends React.Component {
             )}
           </Toolbar>
         </AppBar>
-        <Router/>
+        {/* <Router/> */}
       </div>
     );
   }
