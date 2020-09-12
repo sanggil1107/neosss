@@ -14,6 +14,7 @@
     "material-ui-icons": "^1.0.0-beta.36",
     "moment": "^2.27.0",
     "mssql": "^6.2.0",
+    "mysql": "^2.18.1",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-calendar": "^3.1.0",

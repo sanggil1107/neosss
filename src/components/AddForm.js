@@ -26,6 +26,7 @@ const AddForm = () => {
 			if (active) {
 				const { title, curDate, startHour, endHour } = addFormState;
 				setNewAddFormState({ title, curDate, startHour, endHour });
+				
 				if (mode === 'edit') {
 					setBeforeEdit({ title, curDate, startHour, endHour });
 				}
@@ -35,6 +36,7 @@ const AddForm = () => {
 	);
 
 	const onChangeCurDate = (value) => {
+		console.log(value)
 		setNewAddFormState({ ...newAddFormState, curDate: value });
 	};
 
@@ -79,16 +81,14 @@ const AddForm = () => {
 				...errorState,
 				active: true,
 				mode: 'fail',
-				message: [ [ '일정을 추가할 수 없습니다.' ], [ '해당 시간에 이미 다른 일정이 존재합니다.' ] ]
+				message: [ [ '조근을 추가할 수 없습니다.' ], [ '해당 날에 이미 조근이 존재합니다.' ] ]
 			});
 		}
 	};
 
 	const onClickEdit = () => {
 		if (title === '') return;
-
 		const newSchedule = editDate(newAddFormState, beforeEdit, schedule);
-
 		if (newSchedule !== false) {
 			setUserData({ ...userData, schedule: newSchedule });
 			setAddFormState({ ...addFormState, active: false });
@@ -96,14 +96,14 @@ const AddForm = () => {
 				...errorState,
 				active: true,
 				mode: 'edit',
-				message: [ [ '일정이 수정 되었습니다.' ] ]
+				message: [ [ '조근이 수정 되었습니다.' ] ]
 			});
 		} else {
 			setErrorState({
 				...errorState,
 				active: true,
 				mode: 'fail',
-				message: [ [ '일정을 수정할 수 없습니다.' ], [ '해당 시간에 이미 다른 일정이 존재합니다.' ] ]
+				message: [ [ '조근을 수정할 수 없습니다.' ], [ '해당 날에 이미 조근이 존재합니다.' ] ]
 			});
 		}
 	};
@@ -116,7 +116,7 @@ const AddForm = () => {
 			...errorState,
 			active: true,
 			mode: 'delete',
-			message: [ [ '일정이 삭제 되었습니다.' ] ]
+			message: [ [ '조근이 삭제 되었습니다.' ] ]
 		});
 	};
 
@@ -133,7 +133,7 @@ const AddForm = () => {
 					<div id="date-picker-form">
 						<div className="label">날짜</div>
 						<div id="date-picker">
-							<DatePicker selected={curDate} onChange={onChangeCurDate} />
+							<DatePicker selected={new Date(curDate)} onChange={onChangeCurDate} />
 						</div>
 					</div>
 					<div id="option-form">

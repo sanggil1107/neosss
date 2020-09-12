@@ -1,14 +1,16 @@
+import { userData } from "../stores/userData";
+
 export const getSchedule = (startDate, endDate, schedule) => {
 	if (schedule.length === 0) return [];
 
-	const start = schedule[0].curDate.getTime();
-	const end = schedule[schedule.length - 1].curDate.getTime();
+	const start = new Date(schedule[0].curDate).getTime();
+	const end = new Date(schedule[schedule.length - 1].curDate).getTime();
 	if (endDate.getTime() < start) return [];
 	else if (startDate.getTime() > end) return [];
 
 	const newSchedule = [];
 	for (let i = 0; i < schedule.length; i++) {
-		const curDate = schedule[i].curDate.getTime();
+		const curDate = new Date(schedule[i].curDate).getTime();
 		if (startDate.getTime() <= curDate && endDate.getTime() >= curDate) {
 			newSchedule.push(schedule[i]);
 		} else if (newSchedule.length !== 0) {
@@ -22,25 +24,11 @@ export const getSchedule = (startDate, endDate, schedule) => {
 export const isConflict = (curDate, startHour, endHour, schedule) => {
 	let i = 0;
 	for (i = 0; i < schedule.length; i++) {
-		const diff = curDate.getTime() - schedule[i].curDate.getTime();
-
-		if (diff === 0) {
-			const start = schedule[i].startHour;
-			const end = schedule[i].endHour;
-
-			if (startHour < start) {
-				if (endHour <= start) {
-					break;
-				} else {
-					return -1;
-				}
-			} else if (startHour === start || (startHour > start && startHour < end)) {
-				return -1;
-			} else if (startHour >= endHour) {
-				i++;
-				break;
-			}
-		} else if (diff < 0) {
+		let diffmonth = new Date(curDate).getMonth() - new Date(schedule[i].curDate).getMonth(); 
+		let diffdate = new Date(curDate).getDate() - new Date(schedule[i].curDate).getDate();
+	
+		if (diffmonth == 0 && diffdate == 0) {
+			i = -1
 			break;
 		}
 	}
@@ -62,7 +50,7 @@ export const insertDate = (addFormState, schedule) => {
 
 export const editDate = (addFormState, beforeEdit, schedule) => {
 	const { title, curDate, startHour, endHour } = addFormState;
-
+	console.log(beforeEdit)
 	// 이전 할일을 지우고
 	const newSchedule = deleteDate(beforeEdit.curDate, beforeEdit.startHour, beforeEdit.endHour, schedule);
 	// 새 할일을 추가하는데
@@ -80,7 +68,7 @@ export const editDate = (addFormState, beforeEdit, schedule) => {
 export const deleteDate = (curDate, startHour, endHour, schedule) => {
 	let index = schedule.findIndex(
 		(el) =>
-			el.curDate.getTime() === curDate.getTime() && el.startHour === startHour && el.endHour === endHour
+			new Date(el.curDate).getTime() === new Date(curDate).getTime() && el.startHour === startHour && el.endHour === endHour
 				? true
 				: false
 	);

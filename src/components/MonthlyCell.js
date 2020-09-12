@@ -8,6 +8,7 @@ import { useDragAndDrop } from '../stores/dragAndDrop';
 
 
 const MonthlyCell = (props) => {
+	
 	const { date, schedule } = props;
 	const [ addFormState, setAddFormState ] = useAddFormState();
 	const { active } = addFormState;
@@ -102,6 +103,7 @@ const MonthlyCell = (props) => {
 					draggable
 					onDragStart={(e) => onDragCell(e, a)}
 				>
+		
 					<p>{a.title}</p>
 				</div>
 			))}

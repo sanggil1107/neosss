@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, Fragment } from 'react';
 import '../App.css';
 import MonthlyCell from './MonthlyCell';
 import { getSchedule } from './UserDataController';
@@ -6,33 +6,72 @@ import { getSchedule } from './UserDataController';
 import { useCalendarState } from '../stores/calendarState';
 import { useUserData } from '../stores/userData';
 import moment, { Moment as MomentTypes } from 'moment';
+import { useFetch } from'./Data';
+import axios from 'axios';
+import { insertDate, deleteDate, editDate } from './UserDataController';
 
 const Monthly = () => {
 	const [ calendarState, setCalendarState ] = useCalendarState();
 	const { date } = calendarState;
-
 	const [ days ] = useState([ '일', '월', '화', '수', '목', '금', '토' ]);
 	const [ dates, setDates ] = useState([]); // 달력의 행
-	const [ userData ] = useUserData();
+	const [ userData, setUserData ] = useUserData();
 	const { schedule } = userData; // 유저의 스케쥴
 	const [ curSchedule, setCurSchedule ] = useState([]); // 현재 달력 날짜 안에 포함된 스케쥴
+	const [ inputs, setInputs ] = useState([]);
+	const [ isLoading, setIsLoading ] = useState(false);	
+	const [ newAddFormState ] = useFetch();
 
+	const call = useCallback(() => {
+		const { firstDate, lastDate } = getFirstAndLastDate();
+		//const response = await fetch('/test');
+		const body = axios.get('/test').then(response => {
+			console.log(inputs)
+			setInputs(response.data)		
+		});
+		//const body = await response.json();
+		console.log("call");
+		console.log(body);
+		//setInputs(body.data);
+		
+		return inputs
+		}, []
+	)
+	
 	useEffect(
 		() => {
+			console.log("date");
 			const { firstDate, lastDate } = getFirstAndLastDate();
 			setDates(makeCalendar(firstDate, lastDate));
-		},
-		[ date ]
+		}, [ date ]
 	);
 
 	useEffect(
 		() => {
+			setIsLoading(true);
+			const { firstDate, lastDate } = getFirstAndLastDate();
+			let newSchedule = ''
+				
+			newAddFormState.map((add, i) => (
+				newSchedule = insertDate(add, schedule),
+				schedule.push(add),
+				setUserData({ ...userData, schedule: newSchedule }) // ???
+			))
+	
+			setCurSchedule(getSchedule(firstDate, lastDate, schedule));
+			setIsLoading(false);
+		}, [ newAddFormState ]
+	);
+	
+	
+	useEffect(
+		() => {
+			console.log("userdata");
 			const { firstDate, lastDate } = getFirstAndLastDate();
 			setCurSchedule(getSchedule(firstDate, lastDate, schedule));
-		},
-		[ userData ]
-	);
-
+		}, [ userData ]
+		);
+		
 	const getFirstAndLastDate = () => {
 		const year = date.getFullYear();
 		const month = date.getMonth();
@@ -42,7 +81,7 @@ const Monthly = () => {
 		lastDate = new Date(year, month + 1, 6 - lastDate.getDay());
 		return { firstDate: firstDate, lastDate: lastDate };
 	};
-
+	
 	const makeCalendar = (firstDate, lastDate) => {
 		let tempDate = new Date(firstDate);
 		let newDates = [];
@@ -61,14 +100,13 @@ const Monthly = () => {
 	const getCurDateSchedule = (curDate) => {
 		const curDateSchedule = [];
 		curSchedule.forEach((date) => {
-			if (date.curDate.getTime() - curDate.getTime() === 0) {
+			if (moment(date.curDate).format('YYYY-MM-DD') === moment(curDate).format('YYYY-MM-DD')) {
 				curDateSchedule.push(date);
 			}
 		});
-
+	
 		return curDateSchedule;
 	};
-
 	
 	// function generate() {
   //   const today = moment();
@@ -97,6 +135,10 @@ const Monthly = () => {
   // }
 
 	return (
+		<Fragment>
+		{isLoading ? (
+			<div>isLoading...</div>
+		) : (
 		<div id="monthly-view">
 			<div className="day-row">
 				{days.map((a, i) => (
@@ -113,6 +155,8 @@ const Monthly = () => {
 			))} 
 
 		</div>
+		)}
+		</Fragment>
 	);
 };
 

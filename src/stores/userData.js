@@ -16,6 +16,7 @@ userData.setState = userData.setState.bind(userData);
 // this is the custom hook we'll call on components.
 export function useUserData() {
 	const [ state, set ] = useState(userData.state);
+
 	if (!userData.setters.includes(set)) {
 		userData.setters.push(set);
 	}
@@ -26,5 +27,25 @@ export function useUserData() {
 		[]
 	);
 
+	return [ state, userData.setState ];
+}
+
+export function useData() {
+	
+	const [ state, set ] = useState(userData.state);
+
+  useEffect(() => {
+    callApi()
+      .then((res) => {
+        set(res);
+      })
+		}, []);
+	
+	const callApi = async () => {
+		const reponse = await fetch('/test');
+		const body = await reponse.json();
+		//  console.log(body)
+		return body;
+	}
 	return [ state, userData.setState ];
 }
