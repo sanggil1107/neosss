@@ -7,7 +7,7 @@ const useFetch = ()=> {
   const [ inputs, setInputs ] = useState([]);
 
   const calldata = async() => {
-    const body = await axios.get('/test');
+    const body = await axios.get('/api/list');
     //const body = await response.json();
     console.log("callapi");
     setInputs(body.data);

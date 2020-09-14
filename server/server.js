@@ -42,7 +42,7 @@ app.get('/hi', (req, res) => {
   res.send({username: 'hello react!'});
 })
 
-app.get('/test', (req, res) => {
+app.get('/api/list', (req, res) => {
   connection.query(
     "SELECT title, curDate FROM test",
     (err, rows, fields) => {
@@ -51,6 +51,7 @@ app.get('/test', (req, res) => {
     }
   );
 });
+
 
 // app.get('/api', (req, res) => {
 //   res.json({username:'bryan'});
