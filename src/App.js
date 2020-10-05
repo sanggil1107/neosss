@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import MenuBar from './components/Menubar';
 import Calendar from './components/Calendar';
+import Login from './components/Login';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 const App = () => {
@@ -10,7 +11,8 @@ const App = () => {
     <div className="App" >
       <Router>
         <MenuBar/>
-        <Calendar />
+        {/* <Calendar /> */}
+        <Login/>
       </Router>
     </div>
   );
