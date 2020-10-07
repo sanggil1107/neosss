@@ -5,12 +5,16 @@ const Login = () => {
 
   return (
     <div class="body">
-      <div class="login-box">
+      <div class="center">
         <h1>Login</h1>
-        <div class="textbox">
-          <input type="text" placeholder="Username" name="" value=""></input>
-        </div>
-        <input class="btn" type="button" name="" value="Sing in"></input>
+        <form method="post">
+          <div class="txt_field">
+            <input type="text" required></input>
+            <span></span>
+            <label>사번</label>
+          </div>
+          <input type="submit" value="Login"></input>
+        </form>
       </div>
     </div>
   );
