@@ -11,7 +11,7 @@ const Login = () => {
           <div class="txt_field">
             <input type="text" required></input>
             <span></span>
-            <label>사번</label>
+            <label>ID</label>
           </div>
           <input type="submit" value="Login"></input>
         </form>

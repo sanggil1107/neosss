@@ -9,11 +9,11 @@ const App = () => {
 
   return (
     <div className="App" >
-      {/* <Router>
+      <Router>
         <MenuBar/>
         <Calendar />
-      </Router> */}
-      <Login/>
+      </Router>
+      {/* <Login/> */}
     </div>
   );
 }
