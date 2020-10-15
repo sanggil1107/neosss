@@ -4,7 +4,7 @@ import { Home, Register } from './index';
 
 const Router = () => (
 	<Switch>
-		<Route exact path="/" component={Home} />
+		{/* <Route exact path="/" component={Home} /> */}
 		<Route path="/Register" component={Register} />
 	</Switch>
 );
