@@ -7,7 +7,7 @@ import Calendar from './Calendar';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './Login.css';
 
-const Login = () => {
+const Login = (props) => {
   const [ userid, setUserid ] = useState();
 
   const onChangeId = (e) => {
@@ -15,7 +15,7 @@ const Login = () => {
   };
 
   const onLogin = () => {
-    return <Redirect to="/Register"/>
+    props.history.push("/calendar");
   };
 
   return (
