@@ -17,7 +17,7 @@ class MenuList extends Component {
 					</Link>
 				</List>
 				<List>
-					<Link to="/Register" style={{ textDecoration: 'none', color: 'black' }}>
+					<Link to="/register" style={{ textDecoration: 'none', color: 'black' }}>
 						<ListItem button key={"[등록]"}>
 							<ListItemIcon> <InboxIcon /> </ListItemIcon>
 							<ListItemText primary={"등록"} />

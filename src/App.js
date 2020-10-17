@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import MenuBar from './components/Menubar';
-import Calendar from './components/Calendar';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Main from './components/Main';
 import Login from './components/Login';
+import Register from './components/Register';
 
 const App = () => {
   return (
@@ -11,7 +11,8 @@ const App = () => {
       <div className="App" >
         <Switch>
           <Route exact path="/" component={Login}/>
-          <Route exact path="/calendar" component={Calendar}/>
+          <Route exact path="/main" component={Main}/>
+          <Route exact path="/register" component={Register}/>
         </Switch>
       </div>
     </Router>
