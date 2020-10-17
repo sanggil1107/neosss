@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import { Home, Register } from '../Routes/index';
 import MenuBar from './Menubar';
 import Calendar from './Calendar';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
