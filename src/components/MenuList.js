@@ -9,7 +9,7 @@ class MenuList extends Component {
 		return (
 			<Fragment>
 				<List>
-					<Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
+					<Link to="/main" style={{ textDecoration: 'none', color: 'black' }}>
 						<ListItem button >
 							<ListItemIcon> <HomeIcon /> </ListItemIcon>
 							<ListItemText primary={"Home"} />
