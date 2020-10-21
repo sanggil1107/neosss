@@ -43,16 +43,22 @@ app.get('/hi', (req, res) => {
 })
 
 app.get('/api/list', (req, res) => {
-  connection.query(
-    "SELECT title, curDate FROM test",
-    (err, rows, fields) => {
-      res.send(rows);
+  const sqlSelect = "SELECT title, curDate FROM test";
+  connection.query(sqlSelect, (err, result, fields) => {
+      res.send(result);
       console.log(rows);
     }
   );
 });
 
-
+app.put('/api/update', (req, res) => {
+  const title = req.body.title
+  const curDate = req.body.curDate
+  const sqlUpdate = "UPDATE test set title = ?, curDate = ? WHERE";
+  connection.query(sqlUpdate, [title, curDate], (err, result) => {
+    if (err) console.log(err);
+  })
+});
 // app.get('/api', (req, res) => {
 //   res.json({username:'bryan'});
 // })
