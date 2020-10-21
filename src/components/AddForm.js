@@ -7,6 +7,7 @@ import { insertDate, deleteDate, editDate } from './UserDataController';
 import { useAddFormState } from '../stores/addFormState';
 import { useUserData } from '../stores/userData';
 import { useErrorState } from '../stores/errorState';
+import axios from 'axios';
 
 const AddForm = () => {
 	const [ addFormState, setAddFormState ] = useAddFormState();
@@ -20,6 +21,10 @@ const AddForm = () => {
 	const { schedule } = userData;
 	const [ beforeEdit, setBeforeEdit ] = useState();
 	const [ errorState, setErrorState ] = useErrorState();
+	const updatetitle = async() => {
+		const body = await axios.get('/api/list');
+		alert('d');
+	}
 
 	useEffect(
 		() => {
@@ -32,7 +37,7 @@ const AddForm = () => {
 				}
 			}
 		},
-		[ active ]
+ 		[ active ]
 	);
 
 	const onChangeCurDate = (value) => {
@@ -92,6 +97,7 @@ const AddForm = () => {
 		if (newSchedule !== false) {
 			setUserData({ ...userData, schedule: newSchedule });
 			setAddFormState({ ...addFormState, active: false });
+			updatetitle();
 			setErrorState({
 				...errorState,
 				active: true,
