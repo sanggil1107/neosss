@@ -21,10 +21,18 @@ const AddForm = () => {
 	const { schedule } = userData;
 	const [ beforeEdit, setBeforeEdit ] = useState();
 	const [ errorState, setErrorState ] = useErrorState();
-	const updatetitle = async() => {
-		const body = await axios.get('/api/list');
-		alert('d');
-	}
+	
+	const inserttitle = () => {
+		axios.post('/api/insert', {
+			newtitle: title
+		})
+	};
+	const updatetitle = (newtitle) => {
+		axios.put('/api/update', {title: newtitle});
+	};
+	const deletetitle = (title) => {
+		axios.delete(`/api/delete/${title}`);
+	};
 
 	useEffect(
 		() => {
@@ -75,6 +83,7 @@ const AddForm = () => {
 		if (newSchedule !== false) {
 			setUserData({ ...userData, schedule: newSchedule });
 			setAddFormState({ ...addFormState, active: false });
+			inserttitle();
 			setErrorState({
 				...errorState,
 				active: true,
@@ -97,7 +106,7 @@ const AddForm = () => {
 		if (newSchedule !== false) {
 			setUserData({ ...userData, schedule: newSchedule });
 			setAddFormState({ ...addFormState, active: false });
-			updatetitle();
+			updatetitle(title);
 			setErrorState({
 				...errorState,
 				active: true,
@@ -118,6 +127,7 @@ const AddForm = () => {
 		const newSchedule = deleteDate(curDate, startHour, endHour, schedule);
 		setUserData({ ...userData, schedule: newSchedule });
 		setAddFormState({ ...addFormState, active: false });
+		deletetitle(title);
 		setErrorState({
 			...errorState,
 			active: true,
@@ -136,12 +146,12 @@ const AddForm = () => {
 						<div className="label">이름</div>
 						<input id="input-title" value={title} onChange={onChangeNewAddFormState} />
 					</div>
-					<div id="date-picker-form">
+					{/* <div id="date-picker-form">
 						<div className="label">날짜</div>
 						<div id="date-picker">
 							<DatePicker selected={new Date(curDate)} onChange={onChangeCurDate} />
 						</div>
-					</div>
+					</div> */}
 					<div id="option-form">
 						{mode === 'add' ? (
 							<div id="add-btn" className="btn" onClick={onClickAdd}>
