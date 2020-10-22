@@ -4,6 +4,7 @@ const sql = require('mssql');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const fs = require('fs');
+// const cors = require('cors')
 
 //const api = require('./routes/index');
 const port =process.env.PORT || 3001;
@@ -32,6 +33,8 @@ const connection = mysql.createConnection({
 });
 connection.connect();
 
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.json());
 // app.use('/api', (req, res)=> res.json({username:'bryan'}));
 //app.use('/', api)
 app.get('/api', (req, res) => {
@@ -42,23 +45,40 @@ app.get('/hi', (req, res) => {
   res.send({username: 'hello react!'});
 })
 
+// 조근자 목록 조회
 app.get('/api/list', (req, res) => {
   const sqlSelect = "SELECT title, curDate FROM test";
   connection.query(sqlSelect, (err, result, fields) => {
       res.send(result);
-      console.log(rows);
+      console.log(result);
     }
   );
 });
 
+// 조근 등록
+app.post('/api/insert', (req, res) => {
+  const title = req.body.newtitle;
+  console.log(title);
+});
+
+// 조근 수정
 app.put('/api/update', (req, res) => {
-  const title = req.body.title
-  const curDate = req.body.curDate
-  const sqlUpdate = "UPDATE test set title = ?, curDate = ? WHERE";
-  connection.query(sqlUpdate, [title, curDate], (err, result) => {
+  const title = req.body.title;
+  const sqlUpdate = "UPDATE test set title = ? WHERE title = '양상길'";
+  connection.query(sqlUpdate, title, (err, result) => {
     if (err) console.log(err);
   })
 });
+
+// 조근 삭제
+app.delete('/api/delete/:title', (req, res) => {
+  const title = req.params.title
+  const sqlDelete = "DELETE FROM test where title = ?";
+  connection.query(sqlDelete, title, (err, result) => {
+    if (err) console.log(err);
+  })
+});
+
 // app.get('/api', (req, res) => {
 //   res.json({username:'bryan'});
 // })

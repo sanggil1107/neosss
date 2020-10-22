@@ -21,22 +21,6 @@ const Monthly = () => {
 	const [ inputs, setInputs ] = useState([]);
 	const [ isLoading, setIsLoading ] = useState(false);	
 	const [ newAddFormState ] = useFetch();
-
-	const call = useCallback(() => {
-		const { firstDate, lastDate } = getFirstAndLastDate();
-		//const response = await fetch('/test');
-		const body = axios.get('/test').then(response => {
-			console.log(inputs)
-			setInputs(response.data)		
-		});
-		//const body = await response.json();
-		console.log("call");
-		console.log(body);
-		//setInputs(body.data);
-		
-		return inputs
-		}, []
-	)
 	
 	useEffect(
 		() => {
