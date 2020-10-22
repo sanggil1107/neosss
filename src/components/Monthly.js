@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import '../App.css';
 import MonthlyCell from './MonthlyCell';
 import { getSchedule } from './UserDataController';
@@ -7,7 +7,6 @@ import { useCalendarState } from '../stores/calendarState';
 import { useUserData } from '../stores/userData';
 import moment, { Moment as MomentTypes } from 'moment';
 import { useFetch } from'./Data';
-import axios from 'axios';
 import { insertDate, deleteDate, editDate } from './UserDataController';
 
 const Monthly = () => {
@@ -18,7 +17,6 @@ const Monthly = () => {
 	const [ userData, setUserData ] = useUserData();
 	const { schedule } = userData; // 유저의 스케쥴
 	const [ curSchedule, setCurSchedule ] = useState([]); // 현재 달력 날짜 안에 포함된 스케쥴
-	const [ inputs, setInputs ] = useState([]);
 	const [ isLoading, setIsLoading ] = useState(false);	
 	const [ newAddFormState ] = useFetch();
 	
