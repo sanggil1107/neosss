@@ -27,7 +27,7 @@ class MenuList extends Component {
 					</Link>
 				</List>
 				<List>
-					<Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
+					<Link to="/settings" style={{ textDecoration: 'none', color: 'black' }}>
 						<ListItem button key={"[환경설정]"}>
 							<ListItemIcon> <SettingsIcon /> </ListItemIcon>
 							<ListItemText primary={"환경설정"} />
