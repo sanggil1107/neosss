@@ -8,3 +8,14 @@
   border-radius: 10px;
   border: 1px solid black;
 }
+
+.c_center{
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 350px;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid black;
+}
