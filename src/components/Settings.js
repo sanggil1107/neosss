@@ -8,8 +8,15 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Switch from '@material-ui/core/Switch';
-import WifiIcon from '@material-ui/icons/Wifi';
-import BluetoothIcon from '@material-ui/icons/Bluetooth';
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Divider,
+  TextField
+} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,37 +44,66 @@ const Settings = () => {
   };
 
   return (
-    <div class="s_center">
-      <List subheader={<ListSubheader></ListSubheader>} >
-        <ListItem>
-          <ListItemIcon>
-            <WifiIcon />
-          </ListItemIcon>
-          <ListItemText id="switch-list-label-wifi" primary="Push On/Off" />
-          <ListItemSecondaryAction>
-            <Switch
-              edge="end"
-              onChange={handleToggle('wifi')}
-              checked={checked.indexOf('wifi') !== -1}
-              inputProps={{ 'aria-labelledby': 'switch-list-label-wifi' }}
+    <div>
+      <div  class="s_center">
+        <List subheader={<ListSubheader></ListSubheader>} >
+          <ListItem>
+            <ListItemText id="switch-list-label-wifi" primary="Push On/Off" />
+            <ListItemSecondaryAction>
+              <Switch
+                edge="end"
+                onChange={handleToggle('wifi')}
+                checked={checked.indexOf('wifi') !== -1}
+                inputProps={{ 'aria-labelledby': 'switch-list-label-wifi' }}
+              />
+            </ListItemSecondaryAction>
+          </ListItem>
+        </List>
+      </div>
+      <div class="c_center">
+        <Card>
+          <CardHeader
+            subheader="Update password"
+            title="Password"
+          />
+          <Divider />
+          <CardContent>
+            <TextField
+              fullWidth
+              label="Password"
+              margin="normal"
+              name="password"
+            // onChange={handleChange}
+              type="password"
+            // value={values.password}
+              variant="outlined"
             />
-          </ListItemSecondaryAction>
-        </ListItem>
-        <ListItem>
-          <ListItemIcon>
-            <BluetoothIcon />
-          </ListItemIcon>
-          <ListItemText id="switch-list-label-bluetooth" primary="Bluetooth" />
-          <ListItemSecondaryAction>
-            <Switch
-              edge="end"
-              onChange={handleToggle('bluetooth')}
-              checked={checked.indexOf('bluetooth') !== -1}
-              inputProps={{ 'aria-labelledby': 'switch-list-label-bluetooth' }}
+            <TextField
+              fullWidth
+              label="Confirm password"
+              margin="normal"
+              name="confirm"
+              //onChange={handleChange}
+              type="password"
+              //value={values.confirm}
+              variant="outlined"
             />
-          </ListItemSecondaryAction>
-        </ListItem>
-      </List>
+          </CardContent>
+          <Divider />
+          <Box
+            display="flex"
+            justifyContent="flex-end"
+            p={2}
+          >
+            <Button
+              color="primary"
+              variant="contained"
+            >
+              Update
+            </Button>
+          </Box>
+        </Card>
+      </div>
     </div>
   );
 }
