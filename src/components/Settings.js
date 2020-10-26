@@ -73,10 +73,10 @@ const Settings = () => {
           </ListItem>
           <Divider />
           <ListItem button divider>
-            <ListItemText primary="알림" />
+            <ListItemText primary="알림팀 설정" />
           </ListItem>
           <ListItem button>
-            <ListItemText primary="팀" />
+            <ListItemText primary="조근팀 설정" />
           </ListItem>
         </List>
       </div>
