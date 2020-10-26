@@ -28,14 +28,14 @@ class MenuList extends Component {
 				</List>
 				<List>
 					<Link to="/settings" style={{ textDecoration: 'none', color: 'black' }}>
-						<ListItem button key={"[환경설정]"}>
+						<ListItem button key={"[설정]"}>
 							<ListItemIcon> <SettingsIcon /> </ListItemIcon>
-							<ListItemText primary={"환경설정"} />
+							<ListItemText primary={"설정"} />
 						</ListItem>
 					</Link>
 				</List>
 				<List>
-					<Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
+					<Link to="/admin" style={{ textDecoration: 'none', color: 'black' }}>
 						<ListItem button key={"[Admin]"}>
 							<ListItemIcon> <SupervisorAccountIcon /> </ListItemIcon>
 							<ListItemText primary={"Admin"} />
