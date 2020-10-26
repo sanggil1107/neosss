@@ -46,7 +46,7 @@ const Settings = () => {
   return (
     <div>
       <div  class="s_center">
-        <List subheader={<ListSubheader></ListSubheader>} >
+        {/* <List subheader={<ListSubheader></ListSubheader>} >
           <ListItem>
             <ListItemText id="switch-list-label-wifi" primary="Push On/Off" />
             <ListItemSecondaryAction>
@@ -58,51 +58,27 @@ const Settings = () => {
               />
             </ListItemSecondaryAction>
           </ListItem>
+        </List> */}
+        <List component="nav" className={classes.root} aria-label="mailbox folders">
+          <ListItem button>
+            <ListItemText id="switch-list-label-wifi" primary="Push 알림" />
+            <ListItemSecondaryAction>
+              <Switch
+                edge="end"
+                onChange={handleToggle('wifi')}
+                checked={checked.indexOf('wifi') !== -1}
+                inputProps={{ 'aria-labelledby': 'switch-list-label-wifi' }}
+              />
+            </ListItemSecondaryAction>
+          </ListItem>
+          <Divider />
+          <ListItem button divider>
+            <ListItemText primary="알림" />
+          </ListItem>
+          <ListItem button>
+            <ListItemText primary="팀" />
+          </ListItem>
         </List>
-      </div>
-      <div class="c_center">
-        <Card>
-          <CardHeader
-            subheader="Update password"
-            title="Password"
-          />
-          <Divider />
-          <CardContent>
-            <TextField
-              fullWidth
-              label="Password"
-              margin="normal"
-              name="password"
-            // onChange={handleChange}
-              type="password"
-            // value={values.password}
-              variant="outlined"
-            />
-            <TextField
-              fullWidth
-              label="Confirm password"
-              margin="normal"
-              name="confirm"
-              //onChange={handleChange}
-              type="password"
-              //value={values.confirm}
-              variant="outlined"
-            />
-          </CardContent>
-          <Divider />
-          <Box
-            display="flex"
-            justifyContent="flex-end"
-            p={2}
-          >
-            <Button
-              color="primary"
-              variant="contained"
-            >
-              Update
-            </Button>
-          </Box>
-        </Card>
       </div>
     </div>
   );
