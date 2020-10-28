@@ -12,6 +12,7 @@ const Main = () => {
     <div>
       <Router>
         <MenuBar/>
+        <Admin/>
         <Switch>
           <Route exact path="/main" component={Calendar}/>
           <Route exact path="/register" component={Register}/>
