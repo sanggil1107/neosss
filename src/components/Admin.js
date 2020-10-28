@@ -1,34 +1,19 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Admin_holiday from './Admin_Holiday';
+import Admin_checker from './Admin_Checker';
+import Admin_main from './Admin_Main';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
-
-const Admin = () => {
-  const classes = useStyles();
+const Admin = (props) => {
 
   return (
-    <List component="nav" className={classes.root} aria-label="mailbox folders">
-      <ListItem button>
-        <ListItemText primary="조근자 등록/삭제" />
-      </ListItem>
-      <Divider />
-      <ListItem button divider>
-        <ListItemText primary="휴일 등록/삭제" />
-      </ListItem>
-      <ListItem button>
-        <ListItemText primary="다음 조근 조정" />
-      </ListItem>
-    </List>
+    <div>
+      <Router>
+          <Route exact path="/admin" component={Admin_main}/>
+          <Route exact path="/admin_holiday" component={Admin_holiday}/>
+          <Route exact path="/admin_checker" component={Admin_checker}/>
+      </Router>
+    </div>
   );
 };
 
