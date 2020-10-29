@@ -6,11 +6,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-const team1 = (props) => {
+const Setting_Check = (props) => {
   const { open, setOpen } = props;
+  
   const handleclose = () => {
     setOpen(false);
-  }
+  };
 
   return (
     <div>
@@ -31,4 +32,4 @@ const team1 = (props) => {
   );
 };
 
-export default team1;
+export default Setting_Check;
