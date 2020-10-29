@@ -6,9 +6,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Switch from '@material-ui/core/Switch';
-import { Divider } from '@material-ui/core';
-import Team1 from './team1';
-import Team2 from './team2';
+import { Divider, Button } from '@material-ui/core';
+import SettingCheck from './Setting_Check';
+import SettingAlarm from './Setting_Alarm';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,11 +18,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Settings = () => {
+const Setting_Main = () => {
   const classes = useStyles();
   const [checked, setChecked] = useState(['wifi']);
-  const [open1, setOpen1] = useState(false);
-  const [open2, setOpen2] = useState(false);
+  const [opencheck, setOpencheck] = useState(false);
+  const [openalarm, setOpenalarm] = useState(false);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -37,12 +37,12 @@ const Settings = () => {
     setChecked(newChecked);
   };
 
-  const team1 = () => {
-    setOpen1(true);
+  const handleSettingCheck = () => {
+    setOpencheck(true);
   };
 
-  const team2 = () => {
-    setOpen2(true);
+  const handleSettingAlarmk = () => {
+    setOpenalarm(true);
   };
 
   return (
@@ -75,12 +75,14 @@ const Settings = () => {
           </ListItem>
           <Divider />
           <ListItem button divider disableRipple >
-            <ListItemText primary="알림팀 설정" onClick={team1}/>
-            <Team1 open={open1} setOpen={setOpen1} />
+            <ListItemText primary="조근 수행 팀 설정" />
+            <Button variant="contained" color="primary" onClick={handleSettingCheck}>설정</Button>
+            <SettingCheck open={opencheck} setOpen={setOpencheck}/>  
           </ListItem>
           <ListItem button disableRipple>
-            <ListItemText primary="조근팀 설정" onClick={team2}/>
-            <Team2 open={open2} setOpen={setOpen2} />
+            <ListItemText primary="조근 알림 팀 설정"/>
+            <Button variant="contained" color="primary" onClick={handleSettingAlarmk}>설정</Button>
+            <SettingAlarm open={openalarm} setOpen={setOpenalarm} />
           </ListItem>
         </List>
       </div>
@@ -88,4 +90,4 @@ const Settings = () => {
   );
 }
 
-export default Settings;
+export default Setting_Main;
