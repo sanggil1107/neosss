@@ -3,21 +3,12 @@ import './Settings.css';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import Switch from '@material-ui/core/Switch';
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  TextField
-} from '@material-ui/core';
+import { Divider } from '@material-ui/core';
 import Team1 from './team1';
+import Team2 from './team2';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
 const Settings = () => {
   const classes = useStyles();
   const [checked, setChecked] = useState(['wifi']);
-  const [open, setOpen] = useState(false);
+  const [open1, setOpen1] = useState(false);
+  const [open2, setOpen2] = useState(false);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -45,8 +37,12 @@ const Settings = () => {
     setChecked(newChecked);
   };
 
-  const team = () => {
-    setOpen(true);
+  const team1 = () => {
+    setOpen1(true);
+  };
+
+  const team2 = () => {
+    setOpen2(true);
   };
 
   return (
@@ -79,11 +75,12 @@ const Settings = () => {
           </ListItem>
           <Divider />
           <ListItem button divider disableRipple >
-            <ListItemText primary="알림팀 설정" onClick={team}/>
-            <Team1 open={open} setOpen={setOpen} />
+            <ListItemText primary="알림팀 설정" onClick={team1}/>
+            <Team1 open={open1} setOpen={setOpen1} />
           </ListItem>
-          <ListItem button>
-            <ListItemText primary="조근팀 설정" />
+          <ListItem button disableRipple>
+            <ListItemText primary="조근팀 설정" onClick={team2}/>
+            <Team2 open={open2} setOpen={setOpen2} />
           </ListItem>
         </List>
       </div>
