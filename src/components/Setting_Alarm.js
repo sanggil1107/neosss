@@ -6,8 +6,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-const team2 = (props) => {
+const Setting_Alarm = (props) => {
   const { open, setOpen } = props;
+  
   const handleclose = () => {
     setOpen(false);
   }
@@ -31,4 +32,4 @@ const team2 = (props) => {
   );
 };
 
-export default team2;
+export default Setting_Alarm;
