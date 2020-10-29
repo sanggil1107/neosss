@@ -18,11 +18,6 @@ function generate(element) {
     }),
   );
 }
-const calldata = async() => {
-  const body = await axios.get('/api/select/userList');
-  console.log("callapi");
-  setInputs(body.data);
-}
 
 const Admin_Checker = (props) => {
   const back = () => {
