@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Settings.css';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -17,6 +17,7 @@ import {
   Divider,
   TextField
 } from '@material-ui/core';
+import Team1 from './team1';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Settings = () => {
   const classes = useStyles();
-  const [checked, setChecked] = React.useState(['wifi']);
+  const [checked, setChecked] = useState(['wifi']);
+  const [open, setOpen] = useState(false);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -41,6 +43,10 @@ const Settings = () => {
     }
 
     setChecked(newChecked);
+  };
+
+  const team = () => {
+    setOpen(true);
   };
 
   return (
@@ -72,8 +78,9 @@ const Settings = () => {
             </ListItemSecondaryAction>
           </ListItem>
           <Divider />
-          <ListItem button divider>
-            <ListItemText primary="알림팀 설정" />
+          <ListItem button divider disableRipple >
+            <ListItemText primary="알림팀 설정" onClick={team}/>
+            <Team1 open={open} setOpen={setOpen} />
           </ListItem>
           <ListItem button>
             <ListItemText primary="조근팀 설정" />
