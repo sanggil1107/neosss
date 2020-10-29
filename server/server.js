@@ -17,10 +17,10 @@ const config = {
 
 const data = {
   "host": "127.0.0.1",
-  "user": "root",
-  "password": "1qaz2wsx",
+  "user": "kmj",
+  "password": "alswl@1021!",
   "port": 3306,
-  "database": "management"
+  "database": "NEOSSWORK"
 }
 
 const connection = mysql.createConnection({
@@ -77,6 +77,28 @@ app.delete('/api/delete/:title', (req, res) => {
   connection.query(sqlDelete, title, (err, result) => {
     if (err) console.log(err);
   })
+});
+
+// 조근 대상자 조회
+app.get('/api/select/userList', (req, res) => {
+    let executeQuery = async (teamcode) => {
+      try {
+          let pool = await sql.connect(data);
+          let results = await pool.request()
+              .input('TEAMCODE', sql.VarChar(20), teamcode)
+              .output('USERID', sql.VarChar(50))
+              .output('UESERNAME', sql.VarChar(50))
+              .output('STATUS', sql.Char(1))
+              .execute('UP_USERLIST_SELECT')
+          console.dir(results);
+      } catch (err) {
+          res.json({
+              "error": true,
+              "message": "Error executing query"
+          })
+      }
+      executeQuery(teamcode);
+    }; 
 });
 
 // app.get('/api', (req, res) => {
