@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Setting_Main = () => {
   const classes = useStyles();
-  const [checked, setChecked] = useState(['wifi']);
+  const [checked, setChecked] = useState(['push']);
   const [opencheck, setOpencheck] = useState(false);
   const [openalarm, setOpenalarm] = useState(false);
 
@@ -63,13 +63,13 @@ const Setting_Main = () => {
         </List> */}
         <List component="nav" className={classes.root} aria-label="mailbox folders">
           <ListItem button>
-            <ListItemText id="switch-list-label-wifi" primary="Push 알림" />
+            <ListItemText id="switch-list-label-push" primary="Push 알림" />
             <ListItemSecondaryAction>
               <Switch
                 edge="end"
-                onChange={handleToggle('wifi')}
-                checked={checked.indexOf('wifi') !== -1}
-                inputProps={{ 'aria-labelledby': 'switch-list-label-wifi' }}
+                onChange={handleToggle('push')}
+                checked={checked.indexOf('push') !== -1}
+                inputProps={{ 'aria-labelledby': 'switch-list-label-push' }}
               />
             </ListItemSecondaryAction>
           </ListItem>

@@ -15,12 +15,13 @@ const config = {
   database: 'NEOSSWORK'
 };
 
+// local mysql용 
 const data = {
   "host": "127.0.0.1",
-  "user": "kmj",
-  "password": "alswl@1021!",
+  "user": "root",
+  "password": "1qaz2wsx",
   "port": 3306,
-  "database": "NEOSSWORK"
+  "database": "management"
 }
 
 const connection = mysql.createConnection({
