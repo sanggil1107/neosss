@@ -26,7 +26,6 @@ const Setting_Check = (props) => {
             <TextField label="직업" type="text"name="job" ></TextField><br/>
           </DialogContent>
           <DialogActions>
-            <Button varient="contained" color="primary" >추가</Button>
             <Button varient="outlined" color="primary" onClick={handleclose}>닫기</Button>
           </DialogActions>
       </Dialog>
