@@ -21,9 +21,6 @@ const Setting_Check = (props) => {
       <DialogTitle>알림팀 설정({newAddFormState})</DialogTitle>
           <DialogContent>
             <TextField label="이름" type="text" name="userName" ></TextField><br/>
-            <TextField label="생년월일" type="text" name="birthday" ></TextField><br/>
-            <TextField label="성별" type="text"name="gender" ></TextField><br/>
-            <TextField label="직업" type="text"name="job" ></TextField><br/>
           </DialogContent>
           <DialogActions>
             <Button varient="outlined" color="primary" onClick={handleclose}>닫기</Button>
