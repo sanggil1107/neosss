@@ -6,7 +6,7 @@ import { getSchedule } from './UserDataController';
 import { useCalendarState } from '../stores/calendarState';
 import { useUserData } from '../stores/userData';
 import moment, { Moment as MomentTypes } from 'moment';
-import { useFetch } from'./Data';
+import { useFetch } from'./FetchData';
 import { insertDate, deleteDate, editDate } from './UserDataController';
 
 const Monthly = () => {

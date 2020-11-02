@@ -2,18 +2,18 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const useFetch = ()=> {
-  const [ inputs, setInputs ] = useState([]);
+  const [ datas, setDatas ] = useState([]);
 
-  const calldata = async() => {
+  const setData = async() => {
     const body = await axios.get('/api/list');
-    setInputs(body.data);
+    setDatas(body.data);
   }
 
   useEffect(() => {
-    calldata();
+    setData();
   }, []);
 
-  return [inputs];
+  return [datas];
 }
 
 export { useFetch };
