@@ -6,7 +6,6 @@ const useFetch = ()=> {
 
   const calldata = async() => {
     const body = await axios.get('/api/list');
-    console.log("callapi");
     setInputs(body.data);
   }
 

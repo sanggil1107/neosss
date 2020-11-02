@@ -46,6 +46,16 @@ app.get('/hi', (req, res) => {
   res.send({username: 'hello react!'});
 })
 
+// 팀 목록 조회
+app.get('/api/teamlist', (req, res) => {
+  const sqlSelect = "SELECT teamname FROM team";
+  connection.query(sqlSelect, (err, result, fields) => {
+      res.send(result);
+      console.log(result);
+    }
+  );
+});
+
 // 조근자 목록 조회
 app.get('/api/list', (req, res) => {
   const sqlSelect = "SELECT title, curDate FROM test";
