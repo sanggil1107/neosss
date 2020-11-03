@@ -48,7 +48,7 @@ app.get('/hi', (req, res) => {
 
 // 팀 목록 조회
 app.get('/api/teamlist', (req, res) => {
-  const sqlSelect = "SELECT teamname FROM team";
+  const sqlSelect = "SELECT teamname, teamcode FROM team";
   connection.query(sqlSelect, (err, result, fields) => {
       res.send(result);
       console.log(result);
