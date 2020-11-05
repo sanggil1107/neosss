@@ -11,6 +11,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
+import axios from 'axios';
 
 const Setting_Check = (props) => {
   const { open, setOpen } = props;
@@ -22,7 +23,7 @@ const Setting_Check = (props) => {
   };
 
   const handleSubmit = () => {
-
+    axios.put('/api/team/check_update',{team: selected});
   }
 
   const handleChangeCheckbox = (e) => {

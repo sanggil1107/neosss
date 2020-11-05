@@ -29,6 +29,7 @@ const AddForm = () => {
 	};
 	const updatetitle = (newtitle) => {
 		axios.put('/api/update', {title: newtitle});
+		//axios.put(`/api/update/${newtitle}`);
 	};
 	const deletetitle = (title) => {
 		axios.delete(`/api/delete/${title}`);

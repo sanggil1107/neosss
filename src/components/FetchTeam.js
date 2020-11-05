@@ -5,7 +5,7 @@ const useFetch = ()=> {
   const [ teams, setTeams ] = useState([]);
 
   const setTeam = async() => {
-    const body = await axios.get('/api/teamlist');
+    const body = await axios.get('/api/team/list');
     setTeams(body.data);
   }
 

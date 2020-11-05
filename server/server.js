@@ -46,14 +46,32 @@ app.get('/hi', (req, res) => {
   res.send({username: 'hello react!'});
 })
 
-// 팀 목록 조회
-app.get('/api/teamlist', (req, res) => {
+// 조근/알림팀 목록 조회
+app.get('/api/team/list', (req, res) => {
   const sqlSelect = "SELECT teamname, teamcode FROM team";
   connection.query(sqlSelect, (err, result, fields) => {
       res.send(result);
       console.log(result);
     }
   );
+});
+
+// 수행팀 설정
+app.put('/api/team/check_update', (req, res) => {
+  const title = req.body.title;
+  const sqlUpdate = "UPDATE test set title = ? WHERE title = '양상길'";
+  connection.query(sqlUpdate, title, (err, result) => {
+    if (err) console.log(err);
+  })
+});
+
+// 알림팀 설정
+app.put('/api/team/alarm_update', (req, res) => {
+  const title = req.body.title;
+  const sqlUpdate = "UPDATE test set title = ? WHERE title = '양상길'";
+  connection.query(sqlUpdate, title, (err, result) => {
+    if (err) console.log(err);
+  })
 });
 
 // 조근자 목록 조회
@@ -75,7 +93,8 @@ app.post('/api/insert', (req, res) => {
 // 조근 수정
 app.put('/api/update', (req, res) => {
   const title = req.body.title;
-  const sqlUpdate = "UPDATE test set title = ? WHERE title = '양상길'";
+  //const title = req.params.newtitle;
+  const sqlUpdate = "UPDATE test set title = ? WHERE title = '양상길ㅇ'";
   connection.query(sqlUpdate, title, (err, result) => {
     if (err) console.log(err);
   })
