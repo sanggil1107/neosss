@@ -3,10 +3,10 @@ import { userData } from "../stores/userData";
 export const getSchedule = (startDate, endDate, schedule) => {
 	if (schedule.length === 0) return [];
 
-	const start = new Date(schedule[0].curDate).getTime();
-	const end = new Date(schedule[schedule.length - 1].curDate).getTime();
-	if (endDate.getTime() < start) return [];
-	else if (startDate.getTime() > end) return [];
+	//const start = new Date(schedule[0].curDate).getTime();
+	//const end = new Date(schedule[schedule.length - 1].curDate).getTime();
+	//if (endDate.getTime() < start) return [];
+	//else if (startDate.getTime() > end) return [];
 
 	const newSchedule = [];
 	for (let i = 0; i < schedule.length; i++) {

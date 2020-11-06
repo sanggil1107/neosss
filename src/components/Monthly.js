@@ -8,7 +8,7 @@ import { useUserData } from '../stores/userData';
 import moment, { Moment as MomentTypes } from 'moment';
 import { useFetch } from'./FetchData';
 import { insertDate, deleteDate, editDate } from './UserDataController';
-
+import axios from 'axios';
 const Monthly = () => {
 	const [ calendarState, setCalendarState ] = useCalendarState();
 	const { date } = calendarState;
@@ -19,17 +19,41 @@ const Monthly = () => {
 	const [ curSchedule, setCurSchedule ] = useState([]); // 현재 달력 날짜 안에 포함된 스케쥴
 	const [ isLoading, setIsLoading ] = useState(false);	
 	const [ newAddFormState ] = useFetch();
-	
+	const [ datas, setDatas ] = useState([]);
+
+  // const setData = async() => {
+  //   const body = await axios.get('/api/list');
+	// 	setDatas(body.data);
+
+	// }
+	// setData();
+	// useEffect(
+	// 	() => {
+		
+	// 	}, [ datas ]
+	// );
+	useEffect(() => {
+    return () => {
+      console.log("cleaned up");
+    };
+  });
+
 	useEffect(
 		() => {
+			
 			console.log("date");
 			const { firstDate, lastDate } = getFirstAndLastDate();
 			setDates(makeCalendar(firstDate, lastDate));
+			// setData();
+			return () => {
+				console.log("cleaned up");
+			};
 		}, [ date ]
 	);
 
 	useEffect(
 		() => {
+			// setData();
 			setIsLoading(true);
 			const { firstDate, lastDate } = getFirstAndLastDate();
 			let newSchedule = ''
@@ -42,6 +66,9 @@ const Monthly = () => {
 	
 			setCurSchedule(getSchedule(firstDate, lastDate, schedule));
 			setIsLoading(false);
+			return () => {
+				console.log("cleaned up");
+			};
 		}, [ newAddFormState ]
 	);
 	
@@ -49,8 +76,14 @@ const Monthly = () => {
 	useEffect(
 		() => {
 			console.log("userdata");
+			
 			const { firstDate, lastDate } = getFirstAndLastDate();
+			setDates(makeCalendar(firstDate, lastDate));
 			setCurSchedule(getSchedule(firstDate, lastDate, schedule));
+			// setData();
+			return () => {
+				console.log("cleaned up");
+			};
 		}, [ userData ]
 		);
 		
@@ -89,7 +122,7 @@ const Monthly = () => {
 	
 		return curDateSchedule;
 	};
-	
+
 	// function generate() {
   //   const today = moment();
   //   const startWeek = today.clone().startOf('month').week();

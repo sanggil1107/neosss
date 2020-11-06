@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Menu, MenuItem } from '@material-ui/core';
+import { AppBar, Toolbar, Menu, MenuItem, Link, Button } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import MenuList from './MenuList';
+import Register from './Register';
+import Setting_Main from './Setting_Main';
+import Admin from './Admin';
+import { BrowserRouter as Router, Switch ,Route } from 'react-router-dom';
 
 const styles = {
   root: {
@@ -55,14 +59,19 @@ class MenuBar extends React.Component {
     });
   };
 
+  handletest = () =>{
+    this.props.history.push("/main");
+  }
+
   render() {
     const { classes } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
+
     const sideList = (
     <div className={classes.list}>
-        <MenuList/>
+      <MenuList props={this.props}/>        
     </div>
     );
 
@@ -97,6 +106,7 @@ class MenuBar extends React.Component {
             </SwipeableDrawer>
             <Typography variant="h6" color="inherit" className={classes.grow}>
               조근등록
+              <Button onClick={this.handletest}></Button>
             </Typography>
             {auth && (
               <div>

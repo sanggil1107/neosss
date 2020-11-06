@@ -1,9 +1,16 @@
+import { Button } from '@material-ui/core';
 import React  from 'react';
 
-const Register = () => {
-	
+const Register = (props) => {
+	const handletest = () => {
+		props.history.push("/")
+	}
+
 	return (
-		<h1>조근 등록화면_수정</h1>
+		<div>
+			<h1>조근 등록화면_수정</h1>
+			<Button onClick={handletest}>dd</Button>
+		</div>
 	);
 }
 
