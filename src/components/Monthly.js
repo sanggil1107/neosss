@@ -9,6 +9,7 @@ import moment, { Moment as MomentTypes } from 'moment';
 import { useFetch } from'./FetchData';
 import { insertDate, deleteDate, editDate } from './UserDataController';
 import axios from 'axios';
+
 const Monthly = () => {
 	const [ calendarState, setCalendarState ] = useCalendarState();
 	const { date } = calendarState;
@@ -21,22 +22,32 @@ const Monthly = () => {
 	const [ newAddFormState ] = useFetch();
 	const [ datas, setDatas ] = useState([]);
 
-  // const setData = async() => {
-  //   const body = await axios.get('/api/list');
-	// 	setDatas(body.data);
-
-	// }
-	// setData();
-	// useEffect(
-	// 	() => {
-		
-	// 	}, [ datas ]
-	// );
+  const setData = async() => {
+    const body = await axios.get('/api/list');
+		setDatas(body.data);
+	}
+	
+	setData();
+	useEffect(
+		() => {
+			// setData();
+			// const { firstDate, lastDate } = getFirstAndLastDate();
+			// let newSchedule = ''
+				
+			// newAddFormState.map((add, i) => (
+			// 	newSchedule = insertDate(add, schedule),
+			// 	schedule.push(add),
+			// 	setUserData({ ...userData, schedule: newSchedule }) // ???
+			// ))
+	
+			// setCurSchedule(getSchedule(firstDate, lastDate, schedule));
+		}, [datas]
+	);
 	useEffect(() => {
     return () => {
-      console.log("cleaned up");
+      console.log("un");
     };
-  });
+  },[]);
 
 	useEffect(
 		() => {
@@ -44,7 +55,7 @@ const Monthly = () => {
 			console.log("date");
 			const { firstDate, lastDate } = getFirstAndLastDate();
 			setDates(makeCalendar(firstDate, lastDate));
-			// setData();
+			setData();
 			return () => {
 				console.log("cleaned up");
 			};
@@ -53,7 +64,7 @@ const Monthly = () => {
 
 	useEffect(
 		() => {
-			// setData();
+			setData();
 			setIsLoading(true);
 			const { firstDate, lastDate } = getFirstAndLastDate();
 			let newSchedule = ''
@@ -80,7 +91,7 @@ const Monthly = () => {
 			const { firstDate, lastDate } = getFirstAndLastDate();
 			setDates(makeCalendar(firstDate, lastDate));
 			setCurSchedule(getSchedule(firstDate, lastDate, schedule));
-			// setData();
+			setData();
 			return () => {
 				console.log("cleaned up");
 			};

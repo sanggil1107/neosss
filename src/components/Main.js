@@ -6,6 +6,8 @@ import Setting_Main from './Setting_Main';
 import Admin from './Admin';
 import { BrowserRouter as Router, Switch ,Route } from 'react-router-dom';
 import { MenuList } from '@material-ui/core';
+import CalendarView from './CalendarView';
+import App from '../App';
 
 const Main = () => {
 
@@ -19,7 +21,6 @@ const Main = () => {
           <Route exact path="/register" component={Register}/>
           <Route exact path="/settings" component={Setting_Main}/>
           <Route exact path="/admin" component={Admin}/>
-          <Route exact path="/" component={Calendar}/>
         </Switch>
       </Router>
     </div>
