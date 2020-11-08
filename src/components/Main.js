@@ -7,7 +7,6 @@ import Admin from './Admin';
 import { BrowserRouter as Router, Switch ,Route } from 'react-router-dom';
 import { MenuList } from '@material-ui/core';
 import CalendarView from './CalendarView';
-import App from '../App';
 
 const Main = () => {
 
