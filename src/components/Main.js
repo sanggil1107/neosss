@@ -9,7 +9,7 @@ import { MenuList } from '@material-ui/core';
 import CalendarView from './CalendarView';
 
 const Main = () => {
-
+  const [title, setTitle] = useState();
   const changeTitle = (title) => {
     alert(title);
   }

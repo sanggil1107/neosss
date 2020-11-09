@@ -13,6 +13,7 @@ const MenuList = (props) => {
   const handleLink = () => {
 		 props.history.push("/main")
 	}
+	const {title, setTitle} = props
 	const [ userData, setUserData ] = useUserData();
 	const { schedule } = userData; // 유저의 스케쥴
 
@@ -20,7 +21,7 @@ const MenuList = (props) => {
 	return (
 		<Fragment>
 			<List>
-				<Link to="/main" style={{ textDecoration: 'none', color: 'black' }}>
+				<Link to="/main" style={{ textDecoration: 'none', color: 'black' }} onClick={setTitle("메인")}>
 					<ListItem button >
 						<ListItemIcon> <HomeIcon /> </ListItemIcon>
 						<ListItemText primary={"Home"} />
