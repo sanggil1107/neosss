@@ -20,29 +20,7 @@ const Monthly = () => {
 	const [ curSchedule, setCurSchedule ] = useState([]); // 현재 달력 날짜 안에 포함된 스케쥴
 	const [ isLoading, setIsLoading ] = useState(false);	
 	const [ newAddFormState ] = useFetch();
-	const [ datas, setDatas ] = useState([]);
 
-  const setData = async() => {
-    const body = await axios.get('/api/list');
-		setDatas(body.data);
-	}
-	
-	setData();
-	useEffect(
-		() => {
-			// setData();
-			// const { firstDate, lastDate } = getFirstAndLastDate();
-			// let newSchedule = ''
-				
-			// newAddFormState.map((add, i) => (
-			// 	newSchedule = insertDate(add, schedule),
-			// 	schedule.push(add),
-			// 	setUserData({ ...userData, schedule: newSchedule }) // ???
-			// ))
-	
-			// setCurSchedule(getSchedule(firstDate, lastDate, schedule));
-		}, [datas]
-	);
 	useEffect(() => {
     return () => {
       console.log("un");
@@ -55,7 +33,7 @@ const Monthly = () => {
 			console.log("date");
 			const { firstDate, lastDate } = getFirstAndLastDate();
 			setDates(makeCalendar(firstDate, lastDate));
-			setData();
+
 			return () => {
 				console.log("cleaned up");
 			};
@@ -64,20 +42,21 @@ const Monthly = () => {
 
 	useEffect(
 		() => {
-			setData();
+
 			setIsLoading(true);
 			const { firstDate, lastDate } = getFirstAndLastDate();
 			let newSchedule = ''
 				
 			newAddFormState.map((add, i) => (
 				newSchedule = insertDate(add, schedule),
-				schedule.push(add),
-				setUserData({ ...userData, schedule: newSchedule }) // ???
+				schedule.push(add)
+				//setUserData({ ...userData, schedule: newSchedule }) // ???
 			))
 	
-			setCurSchedule(getSchedule(firstDate, lastDate, schedule));
+			setCurSchedule(getSchedule(firstDate, lastDate, schedule)); 
 			setIsLoading(false);
 			return () => {
+				schedule.length = 0;  // unmount 처리
 				console.log("cleaned up");
 			};
 		}, [ newAddFormState ]
@@ -91,7 +70,7 @@ const Monthly = () => {
 			const { firstDate, lastDate } = getFirstAndLastDate();
 			setDates(makeCalendar(firstDate, lastDate));
 			setCurSchedule(getSchedule(firstDate, lastDate, schedule));
-			setData();
+
 			return () => {
 				console.log("cleaned up");
 			};
