@@ -38,7 +38,7 @@ const MenuBar = (props) => {
 
   const sideList = (
     <div className={classes.list}>
-      <MenuList title={title} setTitle={setTitle}/>        
+      <MenuList setTitle={setTitle}/>        
     </div>
   );
 

@@ -1,30 +1,28 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment, useState } from 'react';
 import { Link, Redirect, Route } from 'react-router-dom';
 import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import SettingsIcon from '@material-ui/icons/Settings';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
-import Calendar  from './Calendar';
 import { useUserData } from '../stores/userData';
 
-
 const MenuList = (props) => {
-  const handleLink = () => {
-		 props.history.push("/main")
-	}
-	const {title, setTitle} = props
+
+	const { setTitle } = props
+	const [text, setText] = useState();
 	const [ userData, setUserData ] = useUserData();
-	const { schedule } = userData; // 유저의 스케쥴
-
-
+	const handleText = (e) => {
+		setText(e.target.text);
+		setTitle(text);
+	}
 	return (
 		<Fragment>
 			<List>
-				<Link to="/main" style={{ textDecoration: 'none', color: 'black' }} onClick={setTitle("메인")}>
+				<Link to="/main" style={{ textDecoration: 'none', color: 'black' }} >
 					<ListItem button >
 						<ListItemIcon> <HomeIcon /> </ListItemIcon>
-						<ListItemText primary={"Home"} />
+						<ListItemText primary={"Home"}/>
 					</ListItem>
 				</Link>
 			</List>
