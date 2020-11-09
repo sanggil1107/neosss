@@ -1,18 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import MenuBar from './Menubar';
 import Calendar  from './Calendar';
 import Register from './Register';
 import Setting_Main from './Setting_Main';
 import Admin from './Admin';
 import { BrowserRouter as Router, Switch ,Route } from 'react-router-dom';
-import { MenuList } from '@material-ui/core';
-import CalendarView from './CalendarView';
 
 const Main = () => {
-  const [title, setTitle] = useState();
-  const changeTitle = (title) => {
-    alert(title);
-  }
+
   return (
     <div>
       <Router>
