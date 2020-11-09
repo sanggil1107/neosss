@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -10,25 +10,21 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { useFetch } from './FetchAdminUserList';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import Switch from '@material-ui/core/Switch';
+import { useFetch } from './FetchAdminUserList';
 
 
 const Admin_Checker = (props) => {
+  const classes = useStyles();
+  const [ dense, setDense ] = useState(false);
+  const [ checked, setChecked ] = useState(['push']);
+  const [ users ] = useFetch();
+
   const back = () => {
     props.history.push('/admin');
   }
-
-  const classes = useStyles();
-  const [ dense, setDense ] = React.useState(false);
-  const [ users ] = useFetch();
 
   return (
     <div className={classes.root}>
@@ -42,9 +38,9 @@ const Admin_Checker = (props) => {
       <div className={classes.demo}>
         <List dense={dense}>
           { users.map((user) =>
-            <ListItem key = { user.USERID }>
+            <ListItem Button key = { user.USERID }>
               <ListItemText 
-                primary={ user.USERNAME }
+                primary={ user.USERNAME + " (" + user.USERID + ")"}
               />
               <ListItemSecondaryAction>
                 <IconButton edge="end" aria-label="delete">
