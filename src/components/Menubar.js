@@ -59,9 +59,6 @@ class MenuBar extends React.Component {
     });
   };
 
-  handletest = () =>{
-    this.props.history.push("/main");
-  }
 
   render() {
     const { classes } = this.props;
@@ -106,7 +103,6 @@ class MenuBar extends React.Component {
             </SwipeableDrawer>
             <Typography variant="h6" color="inherit" className={classes.grow}>
               조근등록
-              <Button onClick={this.handletest}></Button>
             </Typography>
             {auth && (
               <div>

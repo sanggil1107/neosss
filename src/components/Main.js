@@ -10,6 +10,9 @@ import CalendarView from './CalendarView';
 
 const Main = () => {
 
+  const changeTitle = (title) => {
+    alert(title);
+  }
   return (
     <div>
       <Router>

@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Setting_Main = () => {
+const Setting_Main = (props) => {
   const classes = useStyles();
   const [checked, setChecked] = useState(['push']);
   const [opencheck, setOpencheck] = useState(false);
