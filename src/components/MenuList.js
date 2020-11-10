@@ -11,7 +11,6 @@ const MenuList = (props) => {
 
 	const { setTitle } = props
 	const [text, setText] = useState();
-	const [ userData, setUserData ] = useUserData();
 	const handleText = (e) => {
 		setText(e.target.text);
 		setTitle(text);
