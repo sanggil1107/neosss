@@ -156,7 +156,7 @@ app.get('/api/select/userList', (req, res) => {
 
 
 
-sql.connect(kmjsql).then(pool => {
+sql.connect(config).then(pool => {
   // 김민지 테스트
   app.get('/api/kmjtest', function(req, res){
     try{

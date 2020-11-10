@@ -14,6 +14,7 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Switch from '@material-ui/core/Switch';
 import { useFetch } from './FetchAdminUserList';
+import AdminCheckerInsert from './Admin_CheckerInsert';
 
 
 const Admin_Checker = (props) => {
