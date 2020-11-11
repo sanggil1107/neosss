@@ -8,7 +8,6 @@ import MenuBar from './Menubar';
 const Calendar = () => {
   return (
     <div id="calendar">
-      
       <ControlView />
       <CalendarView />     
       <AddForm />

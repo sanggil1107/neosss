@@ -8,6 +8,11 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import MenuList from './MenuList';
+import Calendar  from './Calendar';
+import Register from './Register';
+import Setting_Main from './Setting_Main';
+import Admin from './Admin';
+import { BrowserRouter as Router, Switch ,Route } from 'react-router-dom';
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -33,7 +38,7 @@ const MenuBar = (props) => {
   const [auth, setAuth] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const [left, setLeft] = useState(false);
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState('dfd');
   const open = Boolean(anchorEl);
 
   const sideList = (
@@ -109,6 +114,12 @@ const MenuBar = (props) => {
           )}
         </Toolbar>
       </AppBar>
+      <Switch>
+          <Route exact path="/main" component={Calendar}/>
+          <Route exact path="/register" component={() => <Register title = {title}></Register>}/>
+          <Route exact path="/settings" component={Setting_Main}/>
+          <Route exact path="/admin" component={Admin}/>
+        </Switch>
     </div>
   );
 }
