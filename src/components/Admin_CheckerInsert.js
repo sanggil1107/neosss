@@ -22,6 +22,10 @@ const Setting_Alarm = (props) => {
     setOpen(false);
   };
 
+  const handleChangeCheckbox = () => {
+
+  }
+  
   const handleSubmit = () => {
 
   }

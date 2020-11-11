@@ -7,20 +7,19 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 
 
-const MenuList = (props) => {
+const MenuList = ({setTitle}) => {
 
-	const { setTitle } = props
 	const [text, setText] = useState();
-	const handleText = (e) => {
-		setText(e.target.text);
-		setTitle(text);
+	const handleText = (title) => {
+		// setText(e.target.text);
+		setTitle(title);
 	}
 	return (
 		<Fragment>
 			<List>
 				<Link to="/main" style={{ textDecoration: 'none', color: 'black' }} >
-					<ListItem button >
-						<ListItemIcon> <HomeIcon /> </ListItemIcon>
+					<ListItem button onClick={handleText("adsf")}>
+						<ListItemIcon > <HomeIcon /> </ListItemIcon>
 						<ListItemText primary={"Home"}/>
 					</ListItem>
 				</Link>
