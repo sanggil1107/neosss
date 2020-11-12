@@ -1,5 +1,5 @@
-import React, { Component, Fragment, useState } from 'react';
-import { Link, Redirect, Route } from 'react-router-dom';
+import React, { Fragment, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
@@ -7,18 +7,13 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 
 
-const MenuList = ({setTitle}) => {
+const MenuList = () => {
 
-	const [text, setText] = useState();
-	const handleText = (title) => {
-		// setText(e.target.text);
-		setTitle(title);
-	}
 	return (
 		<Fragment>
 			<List>
 				<Link to="/main" style={{ textDecoration: 'none', color: 'black' }} >
-					<ListItem button onClick={handleText("adsf")}>
+					<ListItem button >
 						<ListItemIcon > <HomeIcon /> </ListItemIcon>
 						<ListItemText primary={"Home"}/>
 					</ListItem>

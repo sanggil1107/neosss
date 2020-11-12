@@ -4,8 +4,10 @@ import ControlView from './ControlView';
 import CalendarView from './CalendarView';
 import AddForm from './AddForm';
 import ErrorPopup from './ErrorPopup';
-import MenuBar from './Menubar';
-const Calendar = () => {
+
+const Calendar = ({ handleTitle }) => {
+  
+  handleTitle("조근 화면");
   return (
     <div id="calendar">
       <ControlView />

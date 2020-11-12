@@ -14,9 +14,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Admin_Main = (props) => {
+const Admin_Main = ({ handleTitle }) => {
   const classes = useStyles();
-
+  handleTitle("Admin");
   return (
       <List component="nav" className={classes.root} aria-label="mailbox folders">
         <Link to="/admin_checker" style={{ textDecoration: 'none', color: 'black' }}>
