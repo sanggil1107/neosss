@@ -68,6 +68,16 @@ app.get('/api/hello', (req, res) => {
   res.send({ express: 'Hello From Express' });
 });
 
+app.post('/api/login/:userid', (req, res) => {
+  const id = req.params.userid;
+  //const title = req.params.newtitle;
+  const sqlSelect = "SELECT USERID FROM USER where userid = ?";
+  connection.query(sqlSelect, id, (err, result) => {
+    res.send(result);
+    console.log(result);
+  })
+});
+
 // 조근/알림팀 목록 조회
 app.get('/api/team/list', (req, res) => {
   const sqlSelect = "SELECT teamname, teamcode FROM team";
@@ -116,7 +126,7 @@ app.post('/api/insert', (req, res) => {
 app.put('/api/update', (req, res) => {
   const title = req.body.title;
   //const title = req.params.newtitle;
-  const sqlUpdate = "UPDATE test set title = ? WHERE title = '양상길ㅇ'";
+  const sqlUpdate = "UPDATE test set title = ? WHERE title = '양상길'";
   connection.query(sqlUpdate, title, (err, result) => {
     if (err) console.log(err);
   })
