@@ -68,7 +68,7 @@ app.get('/api/hello', (req, res) => {
   res.send({ express: 'Hello From Express' });
 });
 
-app.post('/api/login/:userid', (req, res) => {
+app.get('/api/login/:userid', (req, res) => {
   const id = req.params.userid;
   //const title = req.params.newtitle;
   const sqlSelect = "SELECT USERID FROM USER where userid = ?";
