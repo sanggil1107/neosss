@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Main from './components/Main';
-import Login from './components/Login';
+import Login from './components/LoginMain';
 // import Login from './components/LoginPage';
 
 

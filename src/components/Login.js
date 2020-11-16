@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './Login.css';
 import { Link, Redirect } from 'react-router-dom';
-import LoginMain from '../LoginMain';
+import LoginMain from './LoginMain';
 
 const Login = (props) => {
   const [ userid, setUserid ] = useState();
@@ -22,7 +22,7 @@ const Login = (props) => {
   //   // props.history.push("/main");
   // }
   const onLogin = (userid) => {
-    alert(userid);
+    // alert(userid);
   }
 
   return (
