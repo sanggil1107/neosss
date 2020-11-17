@@ -32,7 +32,7 @@ const LoginMain = (props) => {
     else {
       return;
     }
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     const t = localStorage.getItem("user");
@@ -41,7 +41,7 @@ const LoginMain = (props) => {
       console.log("??")
       props.history.push("/login")
     }
-  });
+  }, [user]);
 
 
   return (
@@ -55,11 +55,11 @@ const LoginMain = (props) => {
             <span></span>
             <label>ID</label>
           </div>
-          {user.length === 1 ? (
+          {/* {user.length === 1 ? (
            <Redirect to="/main" ></Redirect>
           ) : (
             <p>dd</p>
-          )}
+          )} */}
           <input type="submit" value="Login" onClick={onLogin1}></input>
           <Link to="/main" onClick={onLogin1}>d</Link>
         </form>
