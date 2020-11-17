@@ -27,7 +27,7 @@ const LoginMain = (props) => {
     if(user.length === 1) {
       console.log("user");
       localStorage.setItem("user", user);
-      props.history.push("/login")
+      props.history.push("/main")
     }
     else {
       return;
@@ -38,8 +38,7 @@ const LoginMain = (props) => {
     const t = localStorage.getItem("user");
     console.log(t);
     if(t) {
-      console.log("??")
-      props.history.push("/login")
+      props.history.push("/main")
     }
   }, [user]);
 
@@ -61,7 +60,6 @@ const LoginMain = (props) => {
             <p>dd</p>
           )} */}
           <input type="submit" value="Login" onClick={onLogin1}></input>
-          <Link to="/main" onClick={onLogin1}>d</Link>
         </form>
       </div>
     </div>
