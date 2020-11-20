@@ -82,7 +82,6 @@ const Setting_Alarm = (props) => {
           </Table>
         </TableContainer>
         <DialogActions>
-          {selected}
           <Button varient="outlined" color="primary" onClick={handleSubmit}>확인</Button>
           <Button varient="outlined" color="primary" onClick={handleClose}>닫기</Button>
         </DialogActions>

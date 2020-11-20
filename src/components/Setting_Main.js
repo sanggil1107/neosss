@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Setting_Main = (props) => {
+const Setting_Main = ({ handleTitle }) => {
   const classes = useStyles();
   const [checked, setChecked] = useState(['push']);
   const [opencheck, setOpencheck] = useState(false);
@@ -45,6 +45,7 @@ const Setting_Main = (props) => {
     setOpenalarm(true);
   };
 
+  handleTitle("환경설정");
   return (
     <div>
       <div  class="s_center">
