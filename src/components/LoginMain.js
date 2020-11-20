@@ -8,6 +8,7 @@ const LoginMain = (props) => {
 
   const resLogin = async(userid) => {
     const body = await axios.get(`/api/login/${userid}`);
+    console.log(body.data)
     setUser(body.data);
   };
   const onChangeId = (e) => {
@@ -20,9 +21,10 @@ const LoginMain = (props) => {
 
   useEffect(() => {
     if(user.length === 1) {
-      localStorage.setItem("user", user);
+      localStorage.setItem("user", JSON.stringify(user));
     }
     const getUser = localStorage.getItem("user");
+    
     if(getUser) {
       props.history.push("/main")
     }

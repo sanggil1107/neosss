@@ -11,15 +11,24 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
-import axios from 'axios';
 
 const Setting_Alarm = (props) => {
   const { open, setOpen } = props;
   const [ teams ] = useFetch();
   const [ selected, setSelected ] = useState([]);
+  const [ id, setId ] = useState();
+  
+  const user = localStorage.getItem("user");
+
+  useEffect(() => {
+    JSON.parse(user).forEach(use => {
+      setId(use.USERID);
+    })
+  },[]);
   
   const handleClose = () => {
     setOpen(false);
+
   };
 
   const handleSubmit = () => {
@@ -49,7 +58,7 @@ const Setting_Alarm = (props) => {
   return (
     <div>
       <Dialog open={open} onClose={handleClose} maxWidth="md">
-        <DialogTitle>알림팀 설정</DialogTitle>
+        <DialogTitle>알림팀 설정 {id}</DialogTitle>
         <TableContainer >
           <Table>
             <TableHead>
