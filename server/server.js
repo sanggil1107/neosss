@@ -50,7 +50,7 @@ const connection = mysql.createConnection({
   dateStrings: 'date'
 });
 //mssql 연결 시 아래 한 줄 주석 필요(comment.김민지)
-connection.connect();
+//connection.connect();
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json());
@@ -131,56 +131,14 @@ app.delete('/api/delete/:title', (req, res) => {
   })
 });
 
-// 조근 대상자 조회
-app.get('/api/select/userList', (req, res) => {
-    let executeQuery = async (userid) => {
-      try {
-          let pool = await sql.connect(config);
-          let results = await pool.request()
-            .input('USERID', sql.VarChar(20), userid)
-            .output('USERID', sql.VarChar(50))
-            .output('UESERNAME', sql.VarChar(50))
-            .output('STATUS', sql.Char(1))
-            .execute('UP_USERLIST_SELECT')
-          res.json(result.recordset);
-          console.dir(results);
-      } catch (err) {
-          res.json({
-              "error": true,
-              "message": "Error executing query"
-          })
-      }
-      executeQuery(userid);
-    }; 
-});
-
-
 
 sql.connect(config).then(pool => {
-  // 김민지 테스트
-  app.get('/api/kmjtest', function(req, res){
+  // ADMIN - 조근 대상자 입력 시 teamcode 조회
+  app.get('/api/admin/userlist/teamcode', function(req, res){
     try{
       return pool.request()
-        .input('USERID', sql.VarChar(20), 'mink93')
-        .query('SELECT USERID, USERNAME FROM TB_USER WHERE USERID = @USERID')
-        .then(result => {
-          res.json(result.recordset);
-          res.end();
-        });
-    } catch (err) {
-      res.json({
-        "error": true,
-        "message": "Error executing query"
-      })
-    }
-  });
-
-  // 김민지 테스트
-  app.get('/api/kmjtest2', function(req, res){
-    try{
-      return pool.request()
-        .input('CATEGORY', sql.VarChar(20), 'USERTEAM')
-        .query('SELECT CATEGORY, CATEGORYDESC, CODE, CODEDESC FROM TB_CODE WHERE CATEGORY = @CATEGORY')
+        .input('USERID', sql.VarChar(50), req.body.userid)
+        .query('SELECT TEAMCODE FROM TB_USER WHERE USERID = @USERID')
         .then(result => {
           res.json(result.recordset);
           res.end();
@@ -197,8 +155,65 @@ sql.connect(config).then(pool => {
   app.get('/api/admin/userlist', function(req, res){
     try{
       return pool.request()
-        .input('USERID', sql.VarChar(20), 'mink93')
+        .input('USERID', sql.VarChar(50), 'mink93')
         .execute('UP_USERLIST_SELECT', function(err, result) {
+          res.json(result.recordset);
+          console.log(result);
+          res.end();
+       });
+    } catch (err) {
+      res.json({
+        "error": true,
+        "message": "Error executing query"
+      })
+    }
+  });
+
+  // ADMIN - 조근 대상자 등록
+  app.post('/api/admin/userlist/insert', function(req, res){
+    try{
+      return pool.request()
+        .input('USERID', sql.VarChar(50), req.body.inputUserid)
+        .input('USERNAME', sql.VarChar(50), req.body.inputUsername)
+        .input('TEAMCODE', sql.VarChar(20), req.body.inputTeamcode)
+        .execute('UP_USERLIST_INSERT', function(err, result) {
+          res.json(result);
+          console.log(result);
+          res.end();
+       });
+    } catch (err) {
+      res.json({
+        "error": true,
+        "message": "Error executing query"
+      })
+    }
+  });
+
+  // ADMIN - 조근 대상자 삭제
+  app.delete('/api/admin/userlist/delete', function(req, res){
+    try{
+      return pool.request()
+        .input('USERID', sql.VarChar(50), req.body.userid)
+        .execute('UP_USERLIST_DELETE', function(err, result) {
+          res.json(result.recordset);
+          console.log(result);
+          res.end();
+       });
+    } catch (err) {
+      res.json({
+        "error": true,
+        "message": "Error executing query"
+      })
+    }
+  });
+  
+  // ADMIN - 조근 대상자 상태 수정
+  app.get('/api/admin/userlist/delete', function(req, res){
+    try{
+      return pool.request()
+        .input('USERID', sql.VarChar(50), req.body.userid)
+        .input('STATUS', sql.Char(1), req.body.status)
+        .execute('UP_USERLIST_UPDATE', function(err, result) {
           res.json(result.recordset);
           console.log(result);
           res.end();

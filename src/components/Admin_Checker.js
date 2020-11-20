@@ -20,6 +20,7 @@ import AdminCheckerInsert from './Admin_CheckerInsert';
 const Admin_Checker = (props) => {
   const classes = useStyles();
   const [ dense, setDense ] = useState(false);
+  const [ openInsert, setOpenInsert ] = useState(false);
   const [ checked, setChecked ] = useState(['push']);
   const [ users ] = useFetch();
 
@@ -27,10 +28,15 @@ const Admin_Checker = (props) => {
     props.history.push('/admin');
   }
 
+  const handleAdminCheckerInsert = () => {
+    setOpenInsert(true);
+  };
+
   return (
     <div className={classes.root}>
-      <Button variant="outlined" size="small" style= { { float: "left", margin: "10px" } } onClick={back}>뒤로가기</Button>
-      <Button variant="outlined" size="small" style= { { float: "right", margin: "10px" } }>조근자등록</Button>
+      <Button variant="outlined" size="small" style= { { float: "left", margin: "10px" } } onClick={ back }>뒤로가기</Button>
+      <Button variant="outlined" size="small" style= { { float: "right", margin: "10px" } } onClick={ handleAdminCheckerInsert }>조근자등록</Button>
+      <AdminCheckerInsert open={ openInsert } setOpen={ setOpenInsert } userid={ 'mink93' }/> 
       <Typography className={classes.title}>
         조근자 목록
       </Typography>
@@ -39,7 +45,7 @@ const Admin_Checker = (props) => {
       <div className={classes.demo}>
         <List dense={dense}>
           { users.map((user) =>
-            <ListItem Button key = { user.USERID }>
+            <ListItem key = { user.USERID }>
               <ListItemText 
                 primary={ user.USERNAME + " (" + user.USERID + ")"}
               />
