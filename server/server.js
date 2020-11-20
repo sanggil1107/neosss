@@ -68,15 +68,15 @@ app.get('/api/hello', (req, res) => {
   res.send({ express: 'Hello From Express' });
 });
 
-app.get('/api/login/:userid', (req, res) => {
-  const id = req.params.userid;
-  //const title = req.params.newtitle;
-  const sqlSelect = "SELECT USERID FROM USER where userid = ?";
-  connection.query(sqlSelect, id, (err, result) => {
-    res.send(result);
-    console.log(result);
-  })
-});
+// app.get('/api/login/:userid', (req, res) => {
+//   const id = req.params.userid;
+//   //const title = req.params.newtitle;
+//   const sqlSelect = "SELECT USERID FROM USER where userid = ?";
+//   connection.query(sqlSelect, id, (err, result) => {
+//     res.send(result);
+//     console.log(result);
+//   })
+// });
 
 // 조근/알림팀 목록 조회
 app.get('/api/team/list', (req, res) => {
@@ -143,6 +143,24 @@ app.delete('/api/delete/:title', (req, res) => {
 
 
 sql.connect(config).then(pool => {
+  // Login
+  app.get('/api/login/:userid', function(req, res){
+    try{
+      return pool.request()
+        .input('USERID', sql.VarChar(50), req.params.userid)
+        .query('SELECT USERID FROM TB_USER WHERE USERID = @USERID')
+        .then(result => {
+          res.send(result);
+          console.log(result.recordset);
+        });
+    } catch (err) {
+      res.json({
+        "error": true,
+        "message": "Error executing query"
+      })
+    }
+  });
+
   // ADMIN - 조근 대상자 입력 시 teamcode 조회
   app.get('/api/admin/userlist/teamcode', function(req, res){
     try{
