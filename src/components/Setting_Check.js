@@ -57,7 +57,7 @@ const Setting_Check = (props) => {
   return (
     <div>
       <Dialog open={open} onClose={handleClose} maxWidth="md">
-        <DialogTitle>조근팀 설정{myteam.map((mytea,i) => (mytea.TEAMCODE))}</DialogTitle>
+        <DialogTitle>조근팀 설정{myteam}</DialogTitle>
         <TableContainer >
           <Table>
             <TableHead>
