@@ -20,6 +20,7 @@ const LoginMain = (props) => {
   };
 
   useEffect(() => {
+    console.log(user)
     if(user.length === 1) {
       localStorage.setItem("user", JSON.stringify(user));
     }
