@@ -19,6 +19,7 @@ import IconButton from '@material-ui/core/IconButton';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
+import AddIcon from '@material-ui/icons/Add';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 
@@ -264,17 +265,23 @@ export default function EnhancedTable() {
     <form className={classes.root} noValidate autoComplete="off">
     <div>
 
-      <div >
+      <div>
       <EnhancedTableToolbar2 numSelected={selected.length} />
-      
+      <IconButton aria-label="Add">
+        <AddIcon />
+      </IconButton>
       <TextField
-          id="standard-Holiname-input"
-          label="Holiname"
-          type="Holiname"
-          autoComplete="current-Holiname"
+          id="outlined-Holiname"
+          label="휴일명"
+          defaultValue="휴일을 입력해주세요"
+          variant="outlined"
         />
-
-
+      <TextField
+               id="outlined-Holiday"
+                label="날짜"
+                defaultValue="날짜를 입력해주세요"
+                variant="outlined"
+              />
       </div>
 
       <div>
