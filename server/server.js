@@ -150,7 +150,7 @@ sql.connect(config).then(pool => {
         .input('USERID', sql.VarChar(50), req.params.userid)
         .query('SELECT USERID FROM TB_USER WHERE USERID = @USERID')
         .then(result => {
-          res.send(result);
+          res.send(result.recordset);
           console.log(result.recordset);
         });
     } catch (err) {
