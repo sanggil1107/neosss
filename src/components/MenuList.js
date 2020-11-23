@@ -20,14 +20,6 @@ const MenuList = () => {
 				</Link>
 			</List>
 			<List>
-				<Link to="/register" style={{ textDecoration: 'none', color: 'black' }}>
-					<ListItem button key={"[등록]"}>
-						<ListItemIcon> <InboxIcon /> </ListItemIcon>
-						<ListItemText primary={"등록"} />
-					</ListItem>
-				</Link>
-			</List>
-			<List>
 				<Link to="/settings" style={{ textDecoration: 'none', color: 'black' }}>
 					<ListItem button key={"[설정]"}>
 						<ListItemIcon> <SettingsIcon /> </ListItemIcon>

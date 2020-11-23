@@ -11,15 +11,25 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
-import axios from 'axios';
 
 const Setting_Alarm = (props) => {
   const { open, setOpen } = props;
   const [ teams ] = useFetch();
   const [ selected, setSelected ] = useState([]);
+  const [ id, setId ] = useState();
+  
+  const user = localStorage.getItem("user");
+
+  useEffect(() => {
+    console.log("er")
+    JSON.parse(user).forEach(use => {
+      setId(use.USERID);
+    })
+  },[]);
   
   const handleClose = () => {
     setOpen(false);
+
   };
 
   const handleSubmit = () => {
@@ -38,7 +48,7 @@ const Setting_Alarm = (props) => {
   const handleChangeAllCheckbox = (e) => {
     if(e.target.checked) {
       setSelected([]);
-      const allselected = teams.map(team => team.teamname);
+      const allselected = teams.map(team => team.CODE);
       setSelected(allselected)
     }
     else {
@@ -49,7 +59,7 @@ const Setting_Alarm = (props) => {
   return (
     <div>
       <Dialog open={open} onClose={handleClose} maxWidth="md">
-        <DialogTitle>알림팀 설정</DialogTitle>
+        <DialogTitle>알림팀 설정 {id}</DialogTitle>
         <TableContainer >
           <Table>
             <TableHead>
@@ -63,19 +73,21 @@ const Setting_Alarm = (props) => {
                 <TableCell>팀코드</TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
+            <TableBody>             
               { teams.map((team, i) => (
-                <TableRow key={team.teamname}>
+                <TableRow key={team.CODE}>
                   <TableCell padding="checkbox">
-                    <Checkbox value={team.teamname} 
+                    <Checkbox value={team.CODE} 
                       onChange={handleChangeCheckbox}
-                      checked={selected.includes(team.teamname)}
+                      checked={selected.includes(team.CODE)}
                     />
                   </TableCell>
                   <TableCell component="th" scope="row">
-                    {team.teamname}
+                    {team.CODEDESC}
                   </TableCell>
-                  <TableCell>팀코드</TableCell>
+                  <TableCell component="th" scope="row">
+                    {team.CODE}
+                  </TableCell>
                 </TableRow>
               )) }
             </TableBody>

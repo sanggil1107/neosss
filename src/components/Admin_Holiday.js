@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import clsx from 'clsx';
+// import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -13,15 +13,18 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import Checkbox from '@material-ui/core/Checkbox';
+// import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
+// import Tooltip from '@material-ui/core/Tooltip';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Divider from '@material-ui/core/Divider';
-// import FilterListIcon from '@material-ui/icons/FilterList';
+import TextField from '@material-ui/core/TextField';
 
+
+
+//#region  DataSetRegion
 function createData(holiname, holiday) {
   return { holiname, holiday};
 }
@@ -65,6 +68,8 @@ const headCells = [
   { id: 'delete', numeric: false, disablePadding: false, label : '삭제' },
 
 ];
+
+//#endregion
 
 function EnhancedTableHead(props) {
   const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
@@ -148,43 +153,50 @@ const EnhancedTableToolbar = (props) => {
 
   return (
     <Toolbar
-      className={clsx(classes.root, {
-        [classes.highlight]: numSelected > 0,
-      })}
+      // className={clsx(classes.root, {
+      //   [classes.highlight]: numSelected > 0,
+      // })}
     >
-      {numSelected > 0 ? (
+      {/* {numSelected > 0 ? (
+        
         <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
           {numSelected} selected
         </Typography>
-      ) : (
+      ) : ( */}
         <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-          휴일 등록/삭제
+          휴일 삭제
         </Typography>
-      
-      )}
-  <Divider />
+      {/* )} */}
+     </Toolbar>
+  );
+};
 
-  
+const EnhancedTableToolbar2 = (props) => {
+  const classes = useToolbarStyles();
+  const { numSelected } = props;
+  return (
+    <Toolbar
+      // className={clsx(classes.root, {
+      //   [classes.highlight]: numSelected > 0,
+      // })}
+    >
       {/* {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton aria-label="delete">
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
+        
+        <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
+          {numSelected} selected
+        </Typography>
+      ) : ( */}
+        <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
+          휴일 등록
+        </Typography>
+{/*       
       )} */}
     </Toolbar>
   );
 };
-
-EnhancedTableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-};
+// EnhancedTableToolbar.propTypes = {
+//   numSelected: PropTypes.number.isRequired,
+// };
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -208,7 +220,9 @@ const useStyles = makeStyles((theme) => ({
     top: 20,
     width: 1,
   },
+
 }));
+
 
 export default function EnhancedTable() {
   const classes = useStyles();
@@ -225,34 +239,6 @@ export default function EnhancedTable() {
     setOrderBy(property);
   };
 
-  // const handleSelectAllClick = (event) => {
-  //   if (event.target.checked) {
-  //     const newSelecteds = rows.map((n) => n.holiname);
-  //     setSelected(newSelecteds);
-  //     return;
-  //   }
-  //   setSelected([]);
-  // };
-
-  // const handleClick = (event, holiname) => {
-  //   const selectedIndex = selected.indexOf(holiname);
-  //   let newSelected = [];
-
-  //   if (selectedIndex === -1) {
-  //     newSelected = newSelected.concat(selected, holiname);
-  //   } else if (selectedIndex === 0) {
-  //     newSelected = newSelected.concat(selected.slice(1));
-  //   } else if (selectedIndex === selected.length - 1) {
-  //     newSelected = newSelected.concat(selected.slice(0, -1));
-  //   } else if (selectedIndex > 0) {
-  //     newSelected = newSelected.concat(
-  //       selected.slice(0, selectedIndex),
-  //       selected.slice(selectedIndex + 1),
-  //     );
-  //   }
-
-  //   setSelected(newSelected);
-  // };
  
 
   const handleChangePage = (event, newPage) => {
@@ -272,85 +258,107 @@ export default function EnhancedTable() {
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
-  return (
-    <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
-        <TableContainer>
-          <Table
-            className={classes.table}
-            aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
-            aria-label="enhanced table"
-          >
-            <EnhancedTableHead
-              classes={classes}
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              // onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-            />
-            <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row.holiday);
-                  const labelId = `enhanced-table-checkbox-${index}`;
 
-                  return (
-                    <TableRow
-                      hover
-                      // onClick={(event) => handleClick(event, row.holiday)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.holiday}
-                      selected={isItemSelected}
-                    >
-                      {/* <TableCell padding="checkbox">
-                        <Checkbox
-                          checked={isItemSelected}
-                          inputProps={{ 'aria-labelledby': labelId }}
-                        />
-                      </TableCell> */}
-                      <TableCell component="th" id={labelId} scope="row" padding="none">
-                        {row.holiname}
-                      </TableCell>
-                      <TableCell align="right">{row.holiday}</TableCell>
-                      <TableCell align="right">
-                          <IconButton aria-label="delete">
-                            <DeleteIcon />
-                          </IconButton>
-                      </TableCell>
-                      {/* <TableCell align="right">{row.carbs}</TableCell> */}
-                      {/* <TableCell align="right">{row.protein}</TableCell> */}
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-                  <TableCell colSpan={3} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
+  return (
+    
+    <form className={classes.root} noValidate autoComplete="off">
+    <div>
+
+      <div >
+      <EnhancedTableToolbar2 numSelected={selected.length} />
+      
+      <TextField
+          id="standard-Holiname-input"
+          label="Holiname"
+          type="Holiname"
+          autoComplete="current-Holiname"
         />
-      </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
+
+
+      </div>
+
+      <div>
+        <Paper className={classes.paper}> 
+        <EnhancedTableToolbar numSelected={selected.length} />
+          <Divider/>
+          <Divider/>
+          <TableContainer>
+            <Table
+              className={classes.table}
+              aria-labelledby="tableTitle"
+              size={dense ? 'small' : 'medium'}
+              aria-label="enhanced table"
+            >
+              <EnhancedTableHead
+                classes={classes}
+                numSelected={selected.length}
+                order={order}
+                orderBy={orderBy}
+                // onSelectAllClick={handleSelectAllClick}
+                onRequestSort={handleRequestSort}
+                rowCount={rows.length}
+              />
+              <TableBody>
+                {stableSort(rows, getComparator(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row, index) => {
+                    const isItemSelected = isSelected(row.holiday);
+                    const labelId = `enhanced-table-checkbox-${index}`;
+
+                    return (
+                      <TableRow
+                        hover
+                        // onClick={(event) => handleClick(event, row.holiday)}
+                        role="checkbox"
+                        aria-checked={isItemSelected}
+                        tabIndex={-1}
+                        key={row.holiday}
+                        selected={isItemSelected}
+                      >
+                        {/* <TableCell padding="checkbox">
+                          <Checkbox
+                            checked={isItemSelected}
+                            inputProps={{ 'aria-labelledby': labelId }}
+                          />
+                        </TableCell> */}
+                        <TableCell component="th" id={labelId} scope="row" padding="none">
+                          {row.holiname}
+                        </TableCell>
+                        <TableCell align="right">{row.holiday}</TableCell>
+                        <TableCell align="right">
+                            <IconButton aria-label="delete">
+                              <DeleteIcon />
+                            </IconButton>
+                        </TableCell>
+                        {/* <TableCell align="right">{row.carbs}</TableCell> */}
+                        {/* <TableCell align="right">{row.protein}</TableCell> */}
+                      </TableRow>
+                    );
+                  })}
+                {emptyRows > 0 && (
+                  <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
+                    <TableCell colSpan={3} />
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+          />
+        </Paper>
+        <FormControlLabel
+          control={<Switch checked={dense} onChange={handleChangeDense} />}
+          label="Dense padding"
+        />
+      </div>
     </div>
+ </form>
   );
 }

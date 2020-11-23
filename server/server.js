@@ -79,23 +79,23 @@ app.get('/api/hello', (req, res) => {
 // });
 
 // 조근/알림팀 목록 조회
-app.get('/api/team/list', (req, res) => {
-  const sqlSelect = "SELECT teamname, teamcode FROM team";
-  connection.query(sqlSelect, (err, result, fields) => {
-      res.send(result);
-      console.log(result);
-    }
-  );
-});
+// app.get('/api/team/list', (req, res) => {
+//   const sqlSelect = "SELECT teamname, teamcode FROM team";
+//   connection.query(sqlSelect, (err, result, fields) => {
+//       res.send(result);
+//       console.log(result);
+//     }
+//   );
+// });
 
 // 수행팀 설정
-app.put('/api/team/check_update', (req, res) => {
-  const title = req.body.title;
-  const sqlUpdate = "UPDATE test set title = ? WHERE title = '양상길'";
-  connection.query(sqlUpdate, title, (err, result) => {
-    if (err) console.log(err);
-  })
-});
+// app.put('/api/team/check_update', (req, res) => {
+//   const title = req.body.title;
+//   const sqlUpdate = "UPDATE test set title = ? WHERE title = '양상길'";
+//   connection.query(sqlUpdate, title, (err, result) => {
+//     if (err) console.log(err);
+//   })
+// });
 
 // 알림팀 설정
 app.put('/api/team/alarm_update', (req, res) => {
@@ -143,14 +143,39 @@ app.delete('/api/delete/:title', (req, res) => {
 
 
 sql.connect(config).then(pool => {
-  // Login
-  app.get('/api/login/:userid', function(req, res){
-    try{
+  // 수행팀 설정
+  // app.put('/api/team/check_update', (req, res) => {
+  //   const team = req.body.team;
+  //   const id = req.body.id;
+  //   const sqlUpdate = "UPDATE test set title = ? WHERE title = '양상길'";
+  //   connection.query(sqlUpdate, title, (err, result) => {
+  //     if (err) console.log(err);
+  //   })
+  // });
+
+  app.put('/api/team/check_update', (req, res) => {
+    try {
       return pool.request()
-        .input('USERID', sql.VarChar(50), req.params.userid)
-        .query('SELECT USERID FROM TB_USER WHERE USERID = @USERID')
+        .input('CODE', sql.VarChar(20), req.body.teamcode)
+        .input('USERID', sql.VarChar(50), req.body.id)
+        .query('UPDATE TB_USER SET TEAMCODE = @CODE WHERE USERID = @USERID')
         .then(result => {
-          res.send(result.recordset);
+          console.log("success");
+        })
+    } catch (err) {
+      res.json({
+        "error": true,
+        "message": "Error executing query"
+      })
+    }
+  });
+  // 조근/알림팀 목록 조회
+  app.get('/api/team/list', (req, res) => {
+    try {
+      return pool.request()
+        .query('SELECT CODEDESC, CODE FROM TB_CODE')
+        .then(result => {
+          res.json(result.recordset);
           console.log(result.recordset);
         });
     } catch (err) {
@@ -161,6 +186,45 @@ sql.connect(config).then(pool => {
     }
   });
 
+  // Login
+  app.get('/api/login/:userid', function(req, res){
+    try{
+      return pool.request()
+        .input('USERID', sql.VarChar(50), req.params.userid)
+        .query('SELECT USERID FROM TB_USER WHERE USERID = @USERID')
+        .then(result => {
+<<<<<<< HEAD
+          res.send(result.recordset);
+=======
+          res.json(result.recordset);
+>>>>>>> master
+          console.log(result.recordset);
+        });
+    } catch (err) {
+      res.json({
+        "error": true,
+        "message": "Error executing query"
+      })
+    }
+  });
+
+  app.get('/api/userlist/teamcode:userid', (req, res) => {
+    try{
+      return pool.request()
+        .input('USERID', sql.VarChar(50), req.params.userid)
+        .query('SELECT TEAMCODE FROM TB_USER WHERE USERID = @USERID')
+        .then(result => {
+          res.json(result.recordset);
+          console.log(result.recordset)
+        });
+    } catch (err) {
+      res.json({
+        "error": true,
+        "message": "Error executing query"
+      })
+    }
+  });
+  
   // ADMIN - 조근 대상자 입력 시 teamcode 조회
   app.get('/api/admin/userlist/teamcode', function(req, res){
     try{
