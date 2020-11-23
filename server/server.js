@@ -193,11 +193,7 @@ sql.connect(config).then(pool => {
         .input('USERID', sql.VarChar(50), req.params.userid)
         .query('SELECT USERID FROM TB_USER WHERE USERID = @USERID')
         .then(result => {
-<<<<<<< HEAD
-          res.send(result.recordset);
-=======
           res.json(result.recordset);
->>>>>>> master
           console.log(result.recordset);
         });
     } catch (err) {
