@@ -17,7 +17,6 @@ import axios from 'axios';
 const Setting_Check = (props) => {
   const { open, setOpen } = props;
   const [ teams ] = useFetch();
-
   const [ selected, setSelected ] = useState();
   const [ id, setId ] = useState();
   const [ myteam ] = useTeamFetch();
