@@ -16,7 +16,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import { makeStyles } from '@material-ui/core/styles';
-import { useFetch } from './FetchAdminUserTeam';
+import { useTeamFetch } from './FetchTeamSelect';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,11 +28,11 @@ const useStyles = makeStyles((theme) => ({
 
 const Adimn_CheckerInsert = (props) => {
   const { open, setOpen } = props;
-  const userid = props.userid;
-  const inputTeamcode  = useFetch();
+  const inputTeamcode  = useTeamFetch();
   const [ inputUserid, setInputUserid ] = useState('');
   const [ inputUsername, setInputUsername ] = useState('');
   const classes = useStyles();
+  const [validUserid, setValidUserid] = useState('');
 
   const handleUseridChange = (e) => {
       setInputUserid(e.target.value);
@@ -43,11 +43,27 @@ const Adimn_CheckerInsert = (props) => {
   };
 
   const handleClose = () => {
+    setInputUserid("");
+    setValidUserid("");
     setOpen(false);
   };
 
-  const validateUseridYN = () => {
-    axios.get('/api/admin/userlist/teamcode', { userid: inputUserid })
+  const validateUseridYN = async(inputUserid) => {
+    if (inputUserid != "") {
+      const body = await axios.get(`/api/login/${inputUserid}`);
+
+      console.log(body.data)
+      setValidUserid(body.data);
+      
+      if( validUserid == "" || validUserid == null || validUserid == undefined )
+      {
+        return null;
+      }  
+      else
+      { 
+        return "이미 등록된 ID 입니다.";
+      }
+    }
   }
   
   const handleSubmit = () => {
@@ -72,7 +88,7 @@ const Adimn_CheckerInsert = (props) => {
                         onChange={ handleUseridChange }
                         aria-describedby="component-error-text"
                         helpertext={
-                            validateUseridYN('Y') ? "이미 등록된 ID 입니다." : null
+                            validateUseridYN(inputUserid)
                         } // 에러일 경우에만 안내 문구 표시
                       />
                     </FormControl>

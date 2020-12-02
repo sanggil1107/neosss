@@ -221,24 +221,6 @@ sql.connect(config).then(pool => {
     }
   });
   
-  // ADMIN - 조근 대상자 입력 시 teamcode 조회
-  app.get('/api/admin/userlist/teamcode', function(req, res){
-    try{
-      return pool.request()
-        .input('USERID', sql.VarChar(50), req.body.userid)
-        .query('SELECT TEAMCODE FROM TB_USER WHERE USERID = @USERID')
-        .then(result => {
-          res.json(result.recordset);
-          res.end();
-        });
-    } catch (err) {
-      res.json({
-        "error": true,
-        "message": "Error executing query"
-      })
-    }
-  });
-  
   // ADMIN - 조근 대상자 조회
   app.get('/api/admin/userlist', function(req, res){
     try{
@@ -296,7 +278,7 @@ sql.connect(config).then(pool => {
   });
   
   // ADMIN - 조근 대상자 상태 수정
-  app.get('/api/admin/userlist/delete', function(req, res){
+  app.get('/api/admin/userlist/update', function(req, res){
     try{
       return pool.request()
         .input('USERID', sql.VarChar(50), req.body.userid)
