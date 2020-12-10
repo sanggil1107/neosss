@@ -24,7 +24,6 @@ import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import { useFetch } from './FetchAdminHolidayList';
 
-const [ holiday ] = useFetch();
 
 
 
@@ -205,6 +204,8 @@ export default function EnhancedTable() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  
+  const [ holiday ] = useFetch();
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
