@@ -22,6 +22,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
+import { useFetch } from './FetchAdminHolidayList';
+
+const [ holiday ] = useFetch();
 
 
 
@@ -81,14 +84,6 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        {/* <TableCell padding="checkbox">
-          <Checkbox
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{ 'aria-label': 'select all desserts' }}
-          />
-        </TableCell> */}
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -110,9 +105,6 @@ function EnhancedTableHead(props) {
             </TableSortLabel>
           </TableCell>
         ))}
-
-
-        
       </TableRow>
     </TableHead>
   );
@@ -135,7 +127,7 @@ const useToolbarStyles = makeStyles((theme) => ({
   },
   highlight:
     theme.palette.type === 'light'
-      ? {
+      ?{
           color: theme.palette.secondary.main,
           backgroundColor: lighten(theme.palette.secondary.light, 0.85),
         }
@@ -146,6 +138,10 @@ const useToolbarStyles = makeStyles((theme) => ({
   title: {
     flex: '1 1 100%',
   },
+
+  colors: {
+    color : "blue"
+  }
 }));
 
 const EnhancedTableToolbar = (props) => {
@@ -153,52 +149,30 @@ const EnhancedTableToolbar = (props) => {
   const { numSelected } = props;
 
   return (
-    <Toolbar
-      // className={clsx(classes.root, {
-      //   [classes.highlight]: numSelected > 0,
-      // })}
-    >
-      {/* {numSelected > 0 ? (
-        
-        <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
-          {numSelected} selected
-        </Typography>
-      ) : ( */}
-        <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-          휴일 삭제
-        </Typography>
-      {/* )} */}
+    <Toolbar color = {classes.colors}>
+      <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
+      휴일 등록
+      </Typography>
      </Toolbar>
   );
 };
 
+
 const EnhancedTableToolbar2 = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected } = props;
+ // const { numSelected } = props;
   return (
-    <Toolbar
-      // className={clsx(classes.root, {
-      //   [classes.highlight]: numSelected > 0,
-      // })}
-    >
-      {/* {numSelected > 0 ? (
-        
-        <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
-          {numSelected} selected
-        </Typography>
-      ) : ( */}
-        <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-          휴일 등록
-        </Typography>
-{/*       
-      )} */}
+    <Toolbar>
+      <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
+        휴일 목록
+      </Typography>
     </Toolbar>
   );
 };
+
 // EnhancedTableToolbar.propTypes = {
 //   numSelected: PropTypes.number.isRequired,
 // };
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -221,9 +195,7 @@ const useStyles = makeStyles((theme) => ({
     top: 20,
     width: 1,
   },
-
 }));
-
 
 export default function EnhancedTable() {
   const classes = useStyles();
@@ -259,15 +231,25 @@ export default function EnhancedTable() {
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
+  // const rootElement = document.getElementById("root");
+
+  // function Check(selected) 
+  // {
+  //     ReactDOM.render(selected, rootElement);
+  // }
+
+
+  const handleOnClick = () => {
+    console.log(selected)
+}
 
   return (
     
     <form className={classes.root} noValidate autoComplete="off">
     <div>
-
       <div>
-      <EnhancedTableToolbar2 numSelected={selected.length} />
-      <IconButton aria-label="Add">
+      <EnhancedTableToolbar numSelected={selected.length} />
+      <IconButton aria-label="Add" size = "small">
         <AddIcon />
       </IconButton>
       <TextField
@@ -277,16 +259,16 @@ export default function EnhancedTable() {
           variant="outlined"
         />
       <TextField
-               id="outlined-Holiday"
-                label="날짜"
-                defaultValue="날짜를 입력해주세요"
-                variant="outlined"
+          id="outlined-Holiday"
+          label="날짜"
+          defaultValue="날짜를 입력해주세요"
+          variant="outlined"
               />
       </div>
 
       <div>
         <Paper className={classes.paper}> 
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar2 numSelected={selected.length} />
           <Divider/>
           <Divider/>
           <TableContainer>
@@ -303,10 +285,10 @@ export default function EnhancedTable() {
                 orderBy={orderBy}
                 // onSelectAllClick={handleSelectAllClick}
                 onRequestSort={handleRequestSort}
-                rowCount={rows.length}
+                rowCount={holiday.length}
               />
               <TableBody>
-                {stableSort(rows, getComparator(order, orderBy))
+                {stableSort(holiday, getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
                     const isItemSelected = isSelected(row.holiday);
@@ -320,7 +302,7 @@ export default function EnhancedTable() {
                         aria-checked={isItemSelected}
                         tabIndex={-1}
                         key={row.holiday}
-                        selected={isItemSelected}
+                        // selected={isItemSelected}
                       >
                         {/* <TableCell padding="checkbox">
                           <Checkbox
@@ -334,7 +316,7 @@ export default function EnhancedTable() {
                         <TableCell align="right">{row.holiday}</TableCell>
                         <TableCell align="right">
                             <IconButton aria-label="delete">
-                              <DeleteIcon />
+                              <DeleteIcon selected = {isItemSelected}  onClick = {this.handleOnClick}/>
                             </IconButton>
                         </TableCell>
                         {/* <TableCell align="right">{row.carbs}</TableCell> */}
@@ -353,7 +335,7 @@ export default function EnhancedTable() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={rows.length}
+            count={holiday.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onChangePage={handleChangePage}
