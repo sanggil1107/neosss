@@ -20,14 +20,24 @@ const Setting_Alarm = (props) => {
   const [ selected, setSelected ] = useState([]);
   const [ id, setId ] = useState();
   const [ myteam ] = useTeamFetch();
+  const [ team, setTeam ] = useState();
   
   const user = localStorage.getItem("user");
 
   useEffect(() => {
     JSON.parse(user).forEach(use => {
+      setUserTeamcode(use.USERID);
       setId(use.USERID);
     })
   },[]);
+
+  const setUserTeamcode = async(id) => {
+    console.log(id)
+    const body = await axios.get(`/api/userlist/alarmteamcode${id}`)
+      .then(response => response.data[0].TEAMCODE);
+    console.log(body)
+    setTeam(body);
+  };
   
   const handleClose = () => {
     setOpen(false);
@@ -35,6 +45,7 @@ const Setting_Alarm = (props) => {
 
   const handleSubmit = () => {
     axios.put('/api/team/alarm_update', '');
+    setOpen(false);
   }
 
   const handleChangeCheckbox = (e) => {
@@ -60,7 +71,7 @@ const Setting_Alarm = (props) => {
   return (
     <div>
       <Dialog open={open} onClose={handleClose} maxWidth="md">
-        <DialogTitle>알림팀 설정 {id}</DialogTitle>
+        <DialogTitle>알림팀 설정 {team}</DialogTitle>
         <TableContainer >
           <Table>
             <TableHead>

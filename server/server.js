@@ -98,13 +98,13 @@ app.get('/api/hello', (req, res) => {
 // });
 
 // 알림팀 설정
-app.put('/api/team/alarm_update', (req, res) => {
-  const title = req.body.title;
-  const sqlUpdate = "UPDATE test set title = ? WHERE title = '양상길'";
-  connection.query(sqlUpdate, title, (err, result) => {
-    if (err) console.log(err);
-  })
-});
+// app.put('/api/team/alarm_update', (req, res) => {
+//   const title = req.body.title;
+//   const sqlUpdate = "UPDATE test set title = ? WHERE title = '양상길'";
+//   connection.query(sqlUpdate, title, (err, result) => {
+//     if (err) console.log(err);
+//   })
+// });
 
 // 조근자 목록 조회
 app.get('/api/list', (req, res) => {
@@ -169,6 +169,24 @@ sql.connect(config).then(pool => {
       })
     }
   });
+
+  app.put('/api/team/alarm_update', (req, res) => {
+    try {
+      return pool.request()
+        .input('CODE', sql.VarChar(20), req.body.teamcode)
+        .input('USERID', sql.VarChar(50), req.body.id)
+        .query('UPDATE TB_ALARMTEAM SET ALARMYN = "Y" WHERE USERID = @USERID AND TEAMCODE = @CODE')
+        .then(result => {
+          console.log("success");
+        })
+    } catch (err) {
+      res.json({
+        "error": true,
+        "message": "Error executing query"
+      })
+    }
+  });
+
   // 조근/알림팀 목록 조회
   app.get('/api/team/list', (req, res) => {
     try {
@@ -209,6 +227,24 @@ sql.connect(config).then(pool => {
       return pool.request()
         .input('USERID', sql.VarChar(50), req.params.userid)
         .query('SELECT TEAMCODE FROM TB_USER WHERE USERID = @USERID')
+        .then(result => {
+          res.json(result.recordset);
+          console.log(result.recordset)
+        });
+    } catch (err) {
+      res.json({
+        "error": true,
+        "message": "Error executing query"
+      })
+    }
+  });
+
+  
+  app.get('/api/userlist/alarmteamcode:userid', (req, res) => {
+    try{
+      return pool.request()
+        .input('USERID', sql.VarChar(50), req.params.userid)
+        .query('SELECT TEAMCODE FROM TB_ALARMTEAM WHERE USERID = @USERID AND ALARMYN = "Y"')
         .then(result => {
           res.json(result.recordset);
           console.log(result.recordset)
