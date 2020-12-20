@@ -25,16 +25,22 @@ const Setting_Check = (props) => {
   const user = localStorage.getItem("user");
 
   useEffect(() => {
+    console.log("test");
     JSON.parse(user).forEach(use => {
       setId(use.USERID);
+      setUserTeamcode(use.USERID);
    //   axios.get(`/api/userlist/teamcode${use.USERID}`);
     })
-  },[]);
+  },[open]);
 
-  // useEffect(() => {
-  //   const body = axios.get('/api/userlist/teamcode',{userid: id});
-  //   setTeam(body.data);
-  // },[id]);
+  const setUserTeamcode = async(id) => {
+    console.log(id)
+    const body = await axios.get(`/api/userlist/teamcode${id}`)
+      .then(response => response.data[0].TEAMCODE);
+    console.log(body)
+    setTeam(body);
+  };
+
 
   const handleClose = () => {
     setOpen(false);
@@ -42,6 +48,7 @@ const Setting_Check = (props) => {
 
   const handleSubmit = () => {
     axios.put('/api/team/check_update',{teamcode: selected, id: id});
+    setOpen(false);
   }
 
   const handleChangeCheckbox = (e) => {
@@ -56,7 +63,7 @@ const Setting_Check = (props) => {
   return (
     <div>
       <Dialog open={open} onClose={handleClose} maxWidth="md">
-        <DialogTitle>조근팀 설정{myteam}</DialogTitle>
+        <DialogTitle>조근팀 설정{team}</DialogTitle>
         <TableContainer >
           <Table>
             <TableHead>
@@ -74,7 +81,7 @@ const Setting_Check = (props) => {
                   <TableCell padding="checkbox">
                     <Checkbox value={team.CODE} 
                       onChange={handleChangeCheckbox}
-                      checked={selected === team.CODE}
+                      checked={selected ? selected === team.CODE : myteam === team.CODE}
                     />
                   </TableCell>
                   <TableCell component="th" scope="row">
