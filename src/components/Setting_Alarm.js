@@ -44,7 +44,9 @@ const Setting_Alarm = (props) => {
   };
 
   const handleSubmit = () => {
-    axios.put('/api/team/alarm_update', '');
+    selected.map(select => (
+      axios.put('/api/team/alarm_update', {teamcode: select, id: id})
+    ));
     setOpen(false);
   }
 
@@ -91,7 +93,7 @@ const Setting_Alarm = (props) => {
                   <TableCell padding="checkbox">
                     <Checkbox value={team.CODE} 
                       onChange={handleChangeCheckbox}
-                      checked={selected.includes(team.CODE)}
+                      checked={selected ? selected.includes(team.CODE) : team.includes(team.CODE)}
                     />
                   </TableCell>
                   <TableCell component="th" scope="row">

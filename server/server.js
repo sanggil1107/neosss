@@ -175,7 +175,7 @@ sql.connect(config).then(pool => {
       return pool.request()
         .input('CODE', sql.VarChar(20), req.body.teamcode)
         .input('USERID', sql.VarChar(50), req.body.id)
-        .query('UPDATE TB_ALARMTEAM SET ALARMYN = "Y" WHERE USERID = @USERID AND TEAMCODE = @CODE')
+        .query("UPDATE TB_ALARMTEAM SET ALARMYN = 'Y' WHERE USERID = @USERID AND TEAMCODE = @CODE")
         .then(result => {
           console.log("success");
         })
