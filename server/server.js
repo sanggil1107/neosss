@@ -244,7 +244,7 @@ sql.connect(config).then(pool => {
     try{
       return pool.request()
         .input('USERID', sql.VarChar(50), req.params.userid)
-        .query('SELECT TEAMCODE FROM TB_ALARMTEAM WHERE USERID = @USERID AND ALARMYN = "Y"')
+        .query("SELECT TEAMCODE FROM TB_ALARMTEAM WHERE USERID = @USERID AND ALARMYN = 'Y'")
         .then(result => {
           res.json(result.recordset);
           console.log(result.recordset)

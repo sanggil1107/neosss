@@ -19,8 +19,8 @@ const Setting_Alarm = (props) => {
   const [ teams ] = useFetch();
   const [ selected, setSelected ] = useState([]);
   const [ id, setId ] = useState();
-  const [ myteam ] = useTeamFetch();
-  const [ team, setTeam ] = useState();
+  //const [ myteam ] = useTeamFetch();
+  const [ myteam, setMyteam ] = useState([]);
   
   const user = localStorage.getItem("user");
 
@@ -31,12 +31,25 @@ const Setting_Alarm = (props) => {
     })
   },[]);
 
+  
+  useEffect(() => {
+    if(open) {
+      setSelected([]);
+    }
+  },[open]);
+
   const setUserTeamcode = async(id) => {
     console.log(id)
-    const body = await axios.get(`/api/userlist/alarmteamcode${id}`)
-      .then(response => response.data[0].TEAMCODE);
-    console.log(body)
-    setTeam(body);
+    console.log(selected)
+    setMyteam(myteam => []);
+    const datas = await axios.get(`/api/userlist/alarmteamcode${id}`)
+      .then(response => response.data);
+    console.log(datas);
+    datas.map(data => (
+      console.log("myteam=" + myteam),
+      console.log(data.TEAMCODE),
+      setMyteam(myteam => [...myteam, data.TEAMCODE])
+    ))
   };
   
   const handleClose = () => {
@@ -52,6 +65,7 @@ const Setting_Alarm = (props) => {
 
   const handleChangeCheckbox = (e) => {
     if(e.target.checked) {
+      console.log("checked");
       setSelected([...selected, e.target.value]);
     }
     else {
@@ -73,7 +87,7 @@ const Setting_Alarm = (props) => {
   return (
     <div>
       <Dialog open={open} onClose={handleClose} maxWidth="md">
-        <DialogTitle>알림팀 설정 {team}</DialogTitle>
+        <DialogTitle>알림팀 설정 </DialogTitle>
         <TableContainer >
           <Table>
             <TableHead>
@@ -93,7 +107,8 @@ const Setting_Alarm = (props) => {
                   <TableCell padding="checkbox">
                     <Checkbox value={team.CODE} 
                       onChange={handleChangeCheckbox}
-                      checked={selected ? selected.includes(team.CODE) : team.includes(team.CODE)}
+                      checked={selected.length!=0 ? selected.includes(team.CODE) : myteam.includes(team.CODE)}
+                      //checked={selected}
                     />
                   </TableCell>
                   <TableCell component="th" scope="row">
