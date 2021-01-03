@@ -56,7 +56,7 @@ const Setting_Check = (props) => {
       setSelected(e.target.value);
     }
     else {
-      setSelected();
+      setSelected('');
     }
   }
 
@@ -81,7 +81,7 @@ const Setting_Check = (props) => {
                   <TableCell padding="checkbox">
                     <Checkbox value={team.CODE} 
                       onChange={handleChangeCheckbox}
-                      checked={selected ? selected === team.CODE : myteam === team.CODE}
+                      checked={selected}
                     />
                   </TableCell>
                   <TableCell component="th" scope="row">
