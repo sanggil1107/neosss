@@ -107,8 +107,8 @@ const Setting_Alarm = (props) => {
                   <TableCell padding="checkbox">
                     <Checkbox value={team.CODE} 
                       onChange={handleChangeCheckbox}
-                      checked={selected.length!=0 ? selected.includes(team.CODE) : myteam.includes(team.CODE)}
-                      //checked={selected}
+                      //checked={selected.length!=0 ? selected.includes(team.CODE) : myteam.includes(team.CODE)}
+                      checked={selected.includes(team.CODE) ? true : false}
                     />
                   </TableCell>
                   <TableCell component="th" scope="row">
