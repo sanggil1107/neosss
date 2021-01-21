@@ -12,7 +12,7 @@
     "concurrently": "^5.3.0",
     "express": "^4.17.1",
     "http-proxy-middleware": "^1.0.6",
-    "immer": "^7.0.14",
+    "immer": "^8.0.1",
     "material-ui-icons": "^1.0.0-beta.36",
     "moment": "^2.27.0",
     "mssql": "^6.2.3",
