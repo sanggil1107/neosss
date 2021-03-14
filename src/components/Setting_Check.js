@@ -19,8 +19,7 @@ const Setting_Check = (props) => {
   const [ teams ] = useFetch();
   const [ selected, setSelected ] = useState();
   const [ id, setId ] = useState();
-  const [ myteam ] = useTeamFetch();
-  const [ team, setTeam ] = useState();
+  //const [ myteam ] = useTeamFetch();
   
   const user = localStorage.getItem("user");
 
@@ -37,8 +36,8 @@ const Setting_Check = (props) => {
     console.log(id)
     const body = await axios.get(`/api/userlist/teamcode${id}`)
       .then(response => response.data[0].TEAMCODE);
-    console.log(body)
-    setTeam(body);
+    console.log("body:", body)
+    setSelected(body);
   };
 
 
@@ -63,7 +62,7 @@ const Setting_Check = (props) => {
   return (
     <div>
       <Dialog open={open} onClose={handleClose} maxWidth="md">
-        <DialogTitle>조근팀 설정{team}</DialogTitle>
+        <DialogTitle>조근팀 설정</DialogTitle>
         <TableContainer >
           <Table>
             <TableHead>
@@ -81,7 +80,7 @@ const Setting_Check = (props) => {
                   <TableCell padding="checkbox">
                     <Checkbox value={team.CODE} 
                       onChange={handleChangeCheckbox}
-                      checked={selected}
+                      checked={selected === team.CODE}
                     />
                   </TableCell>
                   <TableCell component="th" scope="row">
